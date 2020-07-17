@@ -1,0 +1,271 @@
+html,body{
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    margin: 0;
+}
+
+header {
+    background-color: white;
+    margin-top:35px;
+    position: relative;
+    min-height: 78px;
+    max-height: 165px;
+}
+.fixed-container {
+    width: 90%;
+    margin: 0 auto;
+}
+hr{
+    color: #ececec;
+    width: 100%;
+    opacity: 15%;
+}
+
+#logo{
+    float: left;
+    margin-bottom: 30px;
+}
+#mail-us{
+    display: none;
+}
+
+#call-us {
+    display: none;
+}
+.contacts{
+    font-weight: bold;
+}
+nav li{
+    text-decoration: none;
+    list-style-type: none;
+}
+nav a {
+    color: #6c6c6c;
+    text-decoration: none;
+}
+nav a:hover {
+    font-weight: bold;
+}
+.checked-a{
+    color: black;
+}
+
+
+.menu{
+    display:none;
+}
+
+.visible{
+    z-index:1;
+    display:block;
+    border: 2px solid #6c6c6c;
+    margin-right: 10%;
+    padding: 25px 50px;
+    width: auto;
+    min-width: 50%;
+    background-color:#007eb5;
+    font-size: 1.3rem;
+    line-height:3.2rem;
+    text-transform:uppercase;
+    float: right;
+    position:absolute;
+    top:50px;
+    right: 0;
+}
+.visible a{
+    color: white;
+}
+.visible a:hover{
+    color: #6c6c6c;
+}
+div.toggle{
+    position:absolute;
+    top: 15px;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 3px 3px 2px rgba(0,0,0,0);
+    cursor:pointer;
+}
+div>span{
+    width:34px;
+    height: 4px;
+    display:block;
+    background-color: #6c6c6c;
+    position:absolute;
+    top:43%;
+    right:17%;
+
+    box-shadow: 0px 2px 2px;
+    border-radius: 2px;
+    transition: .5s;
+    transition-delay: .5s;
+}
+div>span:before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-color: #6c6c6c;
+    display: block;
+    top:-10px;
+    left:0;
+    box-shadow: 0px 2px 2px;
+    border-radius: 2px;
+    transition-property:top;
+    transition: .3s;
+    transition-delay: .3s;
+}
+div>span:after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-color: #6c6c6c;
+    display: block;
+    top:10px;
+    left:0;
+    box-shadow: 0px 2px 2px;
+    border-radius: 2px;
+    transition-property:top;
+    transition: .3s;
+    transition-delay: .3s;
+}
+div.dactive{
+    position:absolute;
+    top: 15px;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+    cursor:pointer;
+}
+div.dactive span{
+    background-color:transparent;
+    box-shadow: 3px 3px 2px rgba(0,0,0,0);
+}
+div.dactive span:before{
+    top:0px;
+    transform: rotate(45deg);
+    transition-delay: .3s;
+    background-color:#6c6c6c;
+}
+div.dactive span::after{
+    top:0px;
+    transform: rotate(-45deg);
+    transition-delay: .3s;
+    background-color:#6c6c6c;
+}
+
+main{
+    background-color: #dbe1ee;
+    height: 635px;
+}
+
+footer{
+    height: 950px;
+    background-color: #171717;
+}
+footer .fixed-container{
+    height: 850px;
+}
+#copy {
+    background-color: #1a1a1a;
+    color: #615555;
+    height: 70px;
+    text-align: center;
+    padding-top: 35px;
+}
+
+.left-column, .next-column {
+    float: left;
+    color: white;
+    margin-right: 200px;
+}
+
+h3{
+    padding-top: 60px;
+    margin-bottom: 50px;
+}
+.left-column ul{
+    list-style-type: none;
+    padding-left: 80px;
+    margin-left: 0;
+    background-image: url("../img/mail-footer.png");
+    background-repeat: no-repeat;
+}
+.left-column a, .next-column a{
+    color: white;
+    text-decoration: none;
+}
+#phone-footer{
+    margin-top: 55px;
+    background-image: url("../img/phone-footer.png");
+    background-repeat: no-repeat;
+    padding-left: 80px;
+    display: block;
+    height: 42px;
+}
+.next-column ul{
+    list-style-image: url("../img/point.png");
+    list-style-position: inside;
+    margin-left: 0;
+    background-repeat: no-repeat;
+    padding-left: 0;
+}
+.next-column li, .left-column li{
+    padding-bottom: 22px;
+}
+@media only screen and (min-width : 860px) {
+    .fixed-container {
+        width: 80%;
+        margin: 0 auto;
+    }
+    div.toggle{
+        display: none;
+    }
+    .menu{
+        display: block;
+        width: 100%;
+    }
+    nav ul{
+        padding-left: 0;
+        margin-top: 30px;
+        margin-bottom: 35px;
+    }
+    nav li{
+        text-decoration: none;
+        display: inline-block;
+        padding-right: 30px;
+    }
+
+    #mail-us{
+        background-image: url("../img/mail-icon.png");
+        background-repeat: no-repeat;
+        margin-left: 30px;
+        float: right;
+        padding-left: 60px;
+        padding-bottom: 25px ;
+        display: block;
+    }
+
+    #call-us {
+        background-image: url("../img/phone-icon.png");
+        display: block;
+        background-repeat: no-repeat;
+        float: right;
+        margin-left: 30px;
+        padding-left: 60px;
+        padding-bottom: 25px;
+    }
+    .contacts{
+        font-weight: bold;
+    }
+    footer{
+        height: 600px;
+    }
+    footer .fixed-container{
+        height: 500px;
+    }
+}

@@ -1,0 +1,109 @@
+h1, h2, h3 {
+
+    font-family: Montserrat, sans-serif;
+    font-weight: bold;
+    font-size: 47px;
+
+    padding-top: 50px;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 38px;
+}
+
+h3 {
+    font-size: 25px;
+}
+
+p {
+    font-size: 16px;
+    margin: 20px 0;
+    color: #6a6a6a;
+}
+label{
+    font-size: 16px;
+    color: #6a6a6a;
+}
+a {
+    color: #2caf94;
+}
+a:hover{
+    text-decoration: none;
+}
+button, input[type="submit"] {
+    padding: 20px 33px;
+    border-radius: 25px;
+    background-color: #0087be;
+    color: white;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    border: none;
+    margin: 30px 0;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #2caf94;
+}
+
+ul {
+    list-style-image: url("../img/mail-icon.png");
+
+    color: #6a6a6a;
+}
+
+ol {
+    color: #6a6a6a;
+}
+
+table {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: #6a6a6a;
+    border-spacing: 0;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+th, td {
+    padding: 20px 33px;
+    border: 1px solid #6c6c6c;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #e2e2e2;
+}
+
+tbody tr:hover{
+    background-color: #0087be;
+    color: white;
+}
+input{
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 16px;
+    font-family: "Open Sans", sans-serif;
+    padding: 5px;
+    margin: 20px;
+}
+input:focus, textarea:focus{
+    border: none;
+    border-radius: 10px;
+    background-color: honeydew;
+}
+
+input[type="date"]::placeholder{
+    font-family: "Open Sans", sans-serif;
+}
+textarea{
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    font-family: "Open Sans", sans-serif;
+    resize: none;
+    padding: 5px;
+    margin: 20px;
+}
+

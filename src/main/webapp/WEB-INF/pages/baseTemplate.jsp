@@ -21,7 +21,7 @@
         <c:import url="loginOrAuthHeader.jsp"/>
     </c:if>
     <c:if test="${pageName != loginPageName && pageName != authPageName}">
-<%--        <c:import url="userHeader.jsp"/>--%>
+        <c:import url="userHeader.jsp"/>
     </c:if>
 </header>
 <main>

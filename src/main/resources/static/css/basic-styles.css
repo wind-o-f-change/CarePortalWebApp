@@ -48,8 +48,6 @@ button:hover, input[type="submit"]:hover {
 }
 
 ul {
-    list-style-image: url("../img/mail-icon.png");
-
     color: #6a6a6a;
 }
 

@@ -160,7 +160,7 @@ div.dactive span::after{
 
 main{
     background-color: #dbe1ee;
-    height: 635px;
+    min-height: 635px;
 }
 
 footer{

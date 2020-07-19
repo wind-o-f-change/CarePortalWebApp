@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=cyrillic"
           rel="stylesheet">
-    <script src="${pageContext.request.contextPath}/js/default.js"></script>
+    <script src="${pageContext.request.contextPath}/js/hamburger.js"></script>
     <title>${PageTitle}</title>
 </head>
 <body>

@@ -1,7 +1,14 @@
-server:
-  port: 8888
 spring:
   mvc:
     view:
       prefix: /WEB-INF/pages/
       suffix: .jsp
+  datasource:
+    url: jdbc:postgresql://localhost:5432/command_app
+    username: postgres
+    password: 4444
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+     ddl-auto: update

@@ -10,6 +10,10 @@ import ru.careportal.core.db.model.Anketa;
 import ru.careportal.core.db.model.Answer;
 import ru.careportal.core.db.model.Question;
 
+/*
+временный компонент для тестирования, до подключения базы
+ */
+
 @Component
 public class BeanPostProcessorImpl implements BeanPostProcessor {
 

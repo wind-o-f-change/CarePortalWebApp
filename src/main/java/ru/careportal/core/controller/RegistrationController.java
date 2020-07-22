@@ -29,7 +29,7 @@ public class RegistrationController {
 
     @GetMapping
     public String registration(Model model) {
-        log.info("registration");
+        log.debug("registration");
         model.addAttribute("PageTitle", "Registration Page");
         model.addAttribute("PageBody", "reg.jsp");
         return "baseTemplate";
@@ -37,7 +37,7 @@ public class RegistrationController {
 
     @PostMapping
     public String processRegistration(@Valid RegistrationForm form, Model model, Errors errors) {
-        log.info("processRegistration");
+        log.debug("processRegistration");
         if (errors.hasErrors()) {
             model.addAttribute("message", "Не все данные были заполнены");
             model.addAttribute("PageTitle", "Страница регистрации");
@@ -57,6 +57,7 @@ public class RegistrationController {
         }
 
         userRepo.save(user);
+        log.info(String.format("Сохранен пользователь: %s", user));
         return "redirect:/login";
     }
 }

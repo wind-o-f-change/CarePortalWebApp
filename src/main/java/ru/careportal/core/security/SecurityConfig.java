@@ -17,7 +17,7 @@ import ru.careportal.core.service.UserService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class PortalSecurity extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserService userService;
 
     @Autowired
@@ -29,21 +29,16 @@ public class PortalSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration", "/login").permitAll()
-                .anyRequest().authenticated()
-//                .antMatchers("/doctor", "/doctor/**").hasAnyRole(Role.DOCTOR.name(), Role.ADMIN.name())
-//                .antMatchers("/client", "/client/**").hasAnyRole(Role.CLIENT.name(), Role.ADMIN.name())
-//                .anyRequest().hasAnyRole(Role.ADMIN.name())
+                .antMatchers("/", "/registration", "/login","/", "/resources/**").permitAll()
+//                .and()
+//                .exceptionHandling().accessDeniedPage("/login")
                 .and()
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin().loginPage("/login").failureForwardUrl("/registration").permitAll()
                 .and()
-                .logout().permitAll()
+                .logout().logoutUrl("/exit").logoutSuccessUrl("/").permitAll()
                 .and()
                 .csrf().disable();
     }
-//.access("hasAuthority('ADMIN')")
-//    .and()
-//    .httpBasic().and().csrf().disable();
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -51,19 +46,10 @@ public class PortalSecurity extends WebSecurityConfigurerAdapter {
         auth
                 .userDetailsService(userService)
                 .passwordEncoder(encoder());
-
     }
 
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
-
-//    @Bean
-//    public DataSource getDataSource() {
-//        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-//        dataSourceBuilder.username("postgres");
-//        dataSourceBuilder.password("4444");
-//        return dataSourceBuilder.build();
-//    }
 }

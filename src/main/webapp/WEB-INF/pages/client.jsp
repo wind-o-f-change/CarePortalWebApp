@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Клиент</title>
@@ -8,5 +8,5 @@
 <br>
 <img src="https://static.kulturologia.ru/files/u27045/270455341.jpg">
 <br>
-<a href="/"><h5>Home page</h5></a>
+<a href="/"><h5>Главная</h5></a>
 </html><!--тестовая страница-->

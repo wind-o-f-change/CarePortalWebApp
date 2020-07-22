@@ -16,11 +16,11 @@
 <header>
     <c:set var="pageName" value="${PageTitle}"/>
     <c:set var="loginPageName" value="Login Page"/>
-    <c:set var="authPageName" value="Authorization Page"/>
-    <c:if test="${pageName == loginPageName || pageName == authPageName}">
+    <c:set var="regPageName" value="Registration Page"/>
+    <c:if test="${pageName == loginPageName || pageName == regPageName}">
         <c:import url="loginOrAuthHeader.jsp"/>
     </c:if>
-    <c:if test="${pageName != loginPageName && pageName != authPageName}">
+    <c:if test="${pageName != loginPageName && pageName != regPageName}">
         <c:import url="userHeader.jsp"/>
     </c:if>
 </header>
@@ -36,7 +36,7 @@
 <footer>
     <div class="fixed-container">
         <section class="left-column">
-            <h3>Cвяжитесь с нами</h3>
+            <h3>Свяжитесь с нами</h3>
 
             <ul>
                 <li><a href="mailto:university@innopolis.ru">university@innopolis.ru</a></li>

@@ -1,19 +1,20 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Sign up</title>
-    <meta charset="UTF-8">
-</head>
-<body>
-<h4>Sign up</h4>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<h3>Регистрация</h3>
 <form action="/registration" method="post">
+    <span>${message}</span>
     <div><label> User Name : <input type="text" name="username"/> </label></div>
     <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign up"/></div>
+    <div><label> Full name: <input type="text" name="fullName"/> </label></div>
+    <div>
+        <label> Я хочу быть пациентом <input type="radio" value="CLIENT" name="roleName"/>  </label><br>
+        <label> Я хочу быть доктором <input type="radio" value="DOCTOR" name="roleName"/>  </label><br>
+    </div>
+    <input type="hidden" name="_csrf" value="${_csrf.token}" />
+    <form method="POST" action="${login}" id="loginForm">
+    <div><input type="submit" value="Зарегистрироваться"/></div>
 </form>
 <br>
-<h4>You make <a href="/login"><i>Sign in</i></a></h4>
+<p>Уже зарегистрированы? <a href="/login">Войти в личный кабинет</a></p>
 <br>
-<a href="/"><h5>Home page</h5></a>
-</body>
-</html><!--тестовая страница-->
+<a href="/">Вернуться на главную</a><br><br>

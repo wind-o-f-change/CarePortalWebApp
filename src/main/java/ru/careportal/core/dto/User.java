@@ -5,7 +5,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Arrays;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -20,14 +21,19 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(unique = true)
+    @NotNull
+    @Size(min=2, message="Имя должно быть больше 2 символов")
     @NonNull private String username;
+    @NotNull
+    @Size(min=2, message="Пароль должно быть больше 2 символов")
     @NonNull private String password;
-    private Role role = Role.DOCTOR; //Теперь роли работают, сталось определиться каким образом прикручивать роль. Пока по умолч.-ю
-    private Date placedAt;
+    @NotNull
+    private Role role;
+    private Date created;
 
     @PrePersist
-    private void setPlacedAt() {
-        this.placedAt = new Date();
+    private void setCreated() {
+        this.created = new Date();
     }
 
     @Override

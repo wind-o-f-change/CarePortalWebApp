@@ -11,19 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.careportal.core.data.UserRepo;
 import ru.careportal.core.dto.User;
 import ru.careportal.core.security.RegistrationForm;
+import ru.careportal.core.service.UserService;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Slf4j
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
-    private UserRepo userRepo;
+    private UserService userService;
     private PasswordEncoder passwordEncoder;
 
-    public RegistrationController(
-            UserRepo userRepo, PasswordEncoder passwordEncoder) {
-        this.userRepo = userRepo;
+    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -47,16 +48,16 @@ public class RegistrationController {
         }
 
         User user = form.toUser(passwordEncoder);
-        User userFromDB = userRepo.findByUsername(user.getUsername());
-        if (userFromDB != null) {
+        Optional<User> userFromDB = userService.findByUsername(user.getUsername());
+        if (userFromDB.isPresent()) {
             model.addAttribute("message", "Пользователь с таким именем уже зарегестрирован");
             model.addAttribute("PageTitle", "Страница регистрации");
             model.addAttribute("PageBody", "reg.jsp");
-            log.debug(String.format("Пользователь с именем '%s' уже зарегестрирован", userFromDB.getUsername()));
+            log.debug(String.format("Пользователь с именем '%s' уже зарегестрирован", userFromDB.get().getUsername()));
             return "baseTemplate";
         }
 
-        userRepo.save(user);
+        userService.save(user);
         log.info(String.format("Сохранен пользователь: %s", user));
         return "redirect:/login";
     }

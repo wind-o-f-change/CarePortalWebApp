@@ -11,17 +11,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.careportal.core.service.UserService;
+import ru.careportal.core.service.UserDetailsServiceImpl;
 
-@Data
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private UserService userService;
+    private UserDetailsServiceImpl userService;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public void setUserService(UserDetailsServiceImpl userService) {
         this.userService = userService;
     }
 
@@ -30,8 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/registration", "/login","/", "/resources/**").permitAll()
-//                .and()
-//                .exceptionHandling().accessDeniedPage("/login")
                 .and()
                 .formLogin().loginPage("/login").failureForwardUrl("/registration").permitAll()
                 .and()

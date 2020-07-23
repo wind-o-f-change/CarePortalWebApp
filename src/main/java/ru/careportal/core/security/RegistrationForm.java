@@ -14,7 +14,7 @@ public class RegistrationForm {
   private String username;
   @NotBlank(message="Пароль обязателен")
   private String password;
-  @NotBlank(message="Пароль обязателен")
+  @NotBlank(message="Роль обязательна")
   private String roleName;
 
   public User toUser(PasswordEncoder passwordEncoder) {

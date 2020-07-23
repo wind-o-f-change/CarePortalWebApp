@@ -1,15 +1,14 @@
 package ru.careportal.core.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.careportal.core.data.UserRepo;
 import ru.careportal.core.dto.User;
 
+import java.util.Optional;
+
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
     private UserRepo userRepo;
 
     @Autowired
@@ -17,12 +16,15 @@ public class UserService implements UserDetailsService {
         this.userRepo = userRepo;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
-        if (user != null) {
-            return user;
-        }
-        throw new UsernameNotFoundException("User '" + username + "' not found");
+    public Optional<User> findByUsername(String username) {
+        return userRepo.findByUsername(username);
+    }
+
+    public Optional<User> findById(Long id) {
+        return userRepo.findById(id);
+    }
+
+    public void save(User user) {
+        userRepo.save(user);
     }
 }

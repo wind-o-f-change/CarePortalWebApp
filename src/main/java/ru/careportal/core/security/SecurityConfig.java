@@ -1,6 +1,5 @@
 package ru.careportal.core.security;
 
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,8 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/registration", "/login","/", "/resources/**").permitAll()
                 .and()
                 .formLogin().loginPage("/login").failureForwardUrl("/registration").permitAll()
-                .and()
-                .logout().logoutUrl("/exit").logoutSuccessUrl("/").permitAll()
                 .and()
                 .csrf().disable();
     }

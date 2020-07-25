@@ -40,7 +40,7 @@
 
 <p>Вы можете <a href="/registration">зарегистрироваться</a></p>
 <br>
-<a href="/">Вернуться</a>
+
     </div>
 </main>
 <footer>

@@ -7,11 +7,11 @@
     <div><label> Password: <input type="password" name="password"/> </label></div>
     <div><label> Full name: <input type="text" name="fullName"/> </label></div>
     <div>
-        <label> Я хочу быть пациентом <input type="radio" value="CLIENT" name="roleName"/>  </label><br>
-        <label> Я хочу быть доктором <input type="radio" value="DOCTOR" name="roleName"/>  </label><br>
+        <label> Я хочу быть пациентом <input type="radio" value="ROLE_PATIENT" name="roleName"/>  </label><br>
+        <label> Я хочу быть доктором <input type="radio" value="ROLE_DOCTOR" name="roleName"/>  </label><br>
     </div>
     <input type="hidden" name="_csrf" value="${_csrf.token}" />
-    <form method="POST" action="${login}" id="loginForm">
+
     <div><input type="submit" value="Зарегистрироваться"/></div>
 </form>
 <br>

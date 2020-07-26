@@ -19,7 +19,7 @@
     <nav>
         <ul id="menu" class="menu">
             <li><a href="${pageContext.request.contextPath}" class="checked-a">Личный кабинет</a></li>
-            <li><a href="/">Выйти</a></li>
+            <li><a href="/logout">Выйти</a></li>
         </ul>
     </nav>
 </div>

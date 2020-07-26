@@ -2,8 +2,8 @@ package ru.careportal.core.security;
 
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.careportal.core.dto.Role;
-import ru.careportal.core.dto.User;
+import ru.careportal.core.db.model.Role;
+import ru.careportal.core.db.model.User;
 
 import javax.validation.constraints.NotBlank;
 

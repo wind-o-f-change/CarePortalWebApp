@@ -8,7 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.careportal.core.dto.User;
+import ru.careportal.core.db.model.User;
 import ru.careportal.core.security.RegistrationForm;
 import ru.careportal.core.service.UserService;
 
@@ -49,7 +49,7 @@ public class RegistrationController {
         User user = form.toUser(passwordEncoder);
         Optional<User> userFromDB = userService.findByUsername(user.getUsername());
         if (userFromDB.isPresent()) {
-            model.addAttribute("message", "Пользователь с таким именем уже зарегестрирован");
+            model.addAttribute("message", "Пользователь с таким именем уже зарегистрирован");
             model.addAttribute("PageTitle", "Страница регистрации");
             model.addAttribute("PageBody", "reg.jsp");
             log.debug(String.format("Пользователь с именем '%s' уже зарегестрирован", userFromDB.get().getUsername()));

@@ -1,4 +1,4 @@
-package ru.careportal.core.dto;
+package ru.careportal.core.db.model;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

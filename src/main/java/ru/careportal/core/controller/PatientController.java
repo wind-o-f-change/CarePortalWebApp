@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_PATIENT')")
 public class PatientController {
     @GetMapping
-    public String clientPage(Model model){
+    public String patientPage(Model model){
         log.debug("clientPage");
         model.addAttribute("PageTitle", "Страница пациента");
         model.addAttribute("PageBody", "patient.jsp");

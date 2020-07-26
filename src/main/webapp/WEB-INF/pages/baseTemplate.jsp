@@ -60,7 +60,7 @@
             </ul>
         </section>
     </div>
-    <div id="copy">&copy; 2020 CarePortal |STS23 project</div>
+    <div id="copy">&copy; 2020 CarePortal |STC23 project</div>
 </footer>
 
 </body>

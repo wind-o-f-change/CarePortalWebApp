@@ -3,7 +3,7 @@ package ru.careportal.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.careportal.core.data.UserRepo;
-import ru.careportal.core.dto.User;
+import ru.careportal.core.db.model.User;
 
 import java.util.Optional;
 

@@ -8,7 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.careportal.core.dto.User;
+import ru.careportal.core.db.model.User;
 import ru.careportal.core.security.RegistrationForm;
 import ru.careportal.core.service.UserService;
 

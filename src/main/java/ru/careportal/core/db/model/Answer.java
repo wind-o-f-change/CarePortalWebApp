@@ -1,31 +1,23 @@
 package ru.careportal.core.db.model;
 
-public class Answer {
+import lombok.Data;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "answers")
+@Data
+public class Answer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "answer_id")
     private Integer id;
+
+    @Column(name = "answer_text")
     private String text;
 
-    public Answer() {
-    }
-
-    public Answer(Integer id, String text) {
-        this.id = id;
-        this.text = text;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
+    @ManyToMany(mappedBy= "answerList")
+    private List<Question> questionList = new ArrayList<>();
 }

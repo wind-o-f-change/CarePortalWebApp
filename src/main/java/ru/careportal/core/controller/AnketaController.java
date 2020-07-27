@@ -24,12 +24,11 @@ public class AnketaController {
 
     @GetMapping("/anketa/{id}")
     public String showAnketa(Model model, @PathVariable("id") Integer id) throws NoEntityException {
-        Anketa anketa = anketaService.getAnketa(id).orElseThrow(NoEntityException::new);
+        Anketa anketa = anketaService.getAnketa(id);
 
         model.addAttribute("anketa", anketa);
-        log.debug("registration");
         model.addAttribute("PageTitle", anketa.getName());
         model.addAttribute("PageBody", "anketa.jsp");
         return "baseTemplate";
-    };
+    }
 }

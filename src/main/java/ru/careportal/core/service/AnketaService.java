@@ -16,7 +16,7 @@ public class AnketaService {
         this.anketaRepo = anketaRepo;
     }
 
-    public Optional<Anketa> getAnketa(Integer id) {
-        return anketaRepo.getAnketaById(id);
+    public Anketa getAnketa(Integer id) {
+        return anketaRepo.findById(id).orElseThrow(NoEntityException::new);
     }
 }

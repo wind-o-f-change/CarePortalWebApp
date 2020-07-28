@@ -47,12 +47,12 @@ public class RegistrationController {
         }
 
         User user = form.toUser(passwordEncoder);
-        User userFromDB = userService.findByUsername(user.getUsername());
-        if (userFromDB != null) {
-            model.addAttribute("message", "Пользователь с таким именем уже зарегестрирован");
+        Optional<User> userFromDB = userService.findByUsername(user.getUsername());
+        if (userFromDB.isPresent()) {
+            model.addAttribute("message", "Пользователь с таким именем уже зарегистрирован");
             model.addAttribute("PageTitle", "Страница регистрации");
             model.addAttribute("PageBody", "reg.jsp");
-            log.debug(String.format("Пользователь с именем '%s' уже зарегестрирован", userFromDB.getUsername()));
+            log.debug(String.format("Пользователь с именем '%s' уже зарегестрирован", userFromDB.get().getUsername()));
             return "baseTemplate";
         }
 

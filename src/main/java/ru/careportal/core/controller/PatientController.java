@@ -9,15 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
-@RequestMapping("/admin")
-@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-public class AdminController {
+@RequestMapping("/patient")
+@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_PATIENT')")
+public class PatientController {
     @GetMapping
-    public String adminPage(Model model){
-        log.debug("adminPage");
-        model.addAttribute("PageTitle", "Страница администратора");
-        model.addAttribute("PageBody", "admin.jsp");
+    public String patientPage(Model model){
+        log.debug("clientPage");
+        model.addAttribute("PageTitle", "Страница пациента");
+        model.addAttribute("PageBody", "patient.jsp");
         return "baseTemplate";
     }
 }
-

@@ -15,12 +15,12 @@
 <body>
 <header>
     <c:set var="pageName" value="${PageTitle}"/>
-    <c:set var="loginPageName" value="Login Page"/>
-    <c:set var="regPageName" value="Registration Page"/>
-    <c:if test="${pageName == loginPageName || pageName == regPageName}">
+    <c:set var="forbiddenPageName" value="Forbidden"/>
+    <c:set var="regPageName" value="Страница регистрации"/>
+    <c:if test="${pageName == forbiddenPageName || pageName == regPageName}">
         <c:import url="loginOrAuthHeader.jsp"/>
     </c:if>
-    <c:if test="${pageName != loginPageName && pageName != regPageName}">
+    <c:if test="${pageName != forbiddenPageName && pageName != regPageName}">
         <c:import url="userHeader.jsp"/>
     </c:if>
 </header>
@@ -60,7 +60,7 @@
             </ul>
         </section>
     </div>
-    <div id="copy">&copy; 2020 CarePortal |STS23 project</div>
+    <div id="copy">&copy; 2020 CarePortal |STC23 project</div>
 </footer>
 
 </body>

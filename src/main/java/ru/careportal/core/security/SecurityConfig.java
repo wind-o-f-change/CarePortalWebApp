@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import ru.careportal.core.service.UserDetailsServiceImpl;
 
 @Configuration
@@ -27,9 +28,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration", "/login","/", "/resources/**").permitAll()
+                .antMatchers( "/registration", "/login", "/resources/**").permitAll()
                 .and()
-                .formLogin().loginPage("/login").failureForwardUrl("/registration").permitAll()
+                .exceptionHandling().accessDeniedPage("/accessDenied")
+                .and()
+                .formLogin().loginPage("/login").failureForwardUrl("/registration").successHandler(myAuthenticationSuccessHandler()).permitAll()
+                .and()
+                .logout().logoutSuccessUrl("/login").invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID").permitAll()
                 .and()
                 .csrf().disable();
     }
@@ -45,5 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new DependsOnRoleUrlAuthenticationSuccessHandler();
     }
 }

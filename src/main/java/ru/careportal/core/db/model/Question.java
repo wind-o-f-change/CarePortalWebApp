@@ -1,54 +1,34 @@
 package ru.careportal.core.db.model;
 
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "questions")
+@Data
 public class Question {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "question_id")
     private Integer id;
+
+    @Column(name = "question_text")
     private String text;
+
+    @Column
     private String type;
-    private List<Answer> answerList;
 
-    public Question() {
+    @ManyToMany(mappedBy= "questionList")
+    private List<Anketa> anketaList = new ArrayList<>();
 
-    }
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "question_contents",
+            joinColumns= {@JoinColumn(name ="question_id")},
+            inverseJoinColumns= {@JoinColumn(name = "answer_id")})
+    private List<Answer> answerList = new ArrayList<>();
 
-    public Question(Integer id, String text, String type, List<Answer> answerList) {
-        this.id = id;
-        this.text = text;
-        this.type = type;
-        this.answerList = answerList;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public List<Answer> getAnswerList() {
-        return answerList;
-    }
-
-    public void setAnswerList(List<Answer> answerList) {
-        this.answerList = answerList;
-    }
 }

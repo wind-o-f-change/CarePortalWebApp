@@ -31,4 +31,7 @@ public class Question {
             inverseJoinColumns= {@JoinColumn(name = "answer_id")})
     private List<Answer> answerList = new ArrayList<>();
 
+    @OneToMany(mappedBy="question", cascade = CascadeType.ALL)
+    private List<PassQuestion> passQuestionList = new ArrayList<>();
+
 }

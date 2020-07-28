@@ -24,6 +24,9 @@ public class Anketa {
             inverseJoinColumns= {@JoinColumn(name = "question_id")})
     private List<Question> questionList = new ArrayList<>();
 
+    @OneToMany(mappedBy="anketa", cascade = CascadeType.ALL)
+    private List<Pass> passList = new ArrayList<>();
+
     @Override
     public String toString() {
         return "Anketa{" +

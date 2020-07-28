@@ -1,7 +1,7 @@
 package ru.careportal.core.data;
 
 import org.springframework.data.repository.CrudRepository;
-import ru.careportal.core.dto.User;
+import ru.careportal.core.db.model.User;
 
 import java.util.Optional;
 

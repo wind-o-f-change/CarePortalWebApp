@@ -3,7 +3,7 @@ package ru.careportal.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.careportal.core.data.UserRepo;
-import ru.careportal.core.dto.User;
+import ru.careportal.core.db.model.User;
 
 import java.util.Optional;
 
@@ -16,8 +16,8 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public Optional<User> findByUsername(String username) {
-        return userRepo.findByUsername(username);
+    public User findByUsername(String username) {
+        return userRepo.findByUsername(username).orElseThrow(NoEntityException::new);
     }
 
     public Optional<User> findById(Long id) {

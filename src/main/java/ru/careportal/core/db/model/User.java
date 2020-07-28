@@ -1,15 +1,14 @@
-package ru.careportal.core.dto;
+package ru.careportal.core.db.model;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.careportal.core.db.model.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -30,6 +29,9 @@ public class User implements UserDetails {
     @NotNull
     private Role role;
     private Date created;
+
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    private List<Pass> passList = new ArrayList<>();
 
     @PrePersist
     private void setCreated() {

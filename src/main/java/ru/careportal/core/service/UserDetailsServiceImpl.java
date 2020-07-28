@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.careportal.core.data.UserRepo;
-import ru.careportal.core.dto.User;
+import ru.careportal.core.db.model.User;
 
 import java.util.Optional;
 

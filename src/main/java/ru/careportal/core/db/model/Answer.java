@@ -20,4 +20,7 @@ public class Answer {
 
     @ManyToMany(mappedBy= "answerList")
     private List<Question> questionList = new ArrayList<>();
+
+    @OneToMany(mappedBy="answer", cascade = CascadeType.ALL)
+    private List<PassQuestion> passQuestionList = new ArrayList<>();
 }

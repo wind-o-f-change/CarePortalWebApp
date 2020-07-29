@@ -9,8 +9,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<h1>${anketa.name}</h1>
-<form method="POST" action="/anketa/${anketa.id}" modelAttribute="passDto">
+<h1>${passDto.anketaName}</h1>
+<form method="POST" action="/passed-anketa" modelAttribute="passDto">
+    <form:hidden path="passDto.anketaId"/>
+    <form:hidden path="passDto.anketaName"/>
     <c:forEach var="question" items="${passDto.questionDtoList}" varStatus="vsq">
         <form:hidden path="passDto.questionDtoList[${vsq.index}].id"/>
         <form:hidden path="passDto.questionDtoList[${vsq.index}].text"/>

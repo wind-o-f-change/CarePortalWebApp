@@ -32,6 +32,6 @@ public class Question {
     private List<Answer> answerList = new ArrayList<>();
 
     @OneToMany(mappedBy="question", cascade = CascadeType.ALL)
-    private List<PassQuestion> passQuestionList = new ArrayList<>();
+    private List<PassedQuestion> passedQuestionList = new ArrayList<>();
 
 }

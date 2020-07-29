@@ -35,11 +35,16 @@ public class Pass {
     private User user;
 
     @OneToMany(mappedBy="pass", cascade = CascadeType.ALL)
-    private List<PassQuestion> passQuestionList = new ArrayList<>();
+    private List<PassedQuestion> passedQuestionList = new ArrayList<>();
 
     @PrePersist
     private void setCreated() {
         this.created = new Date();
+    }
+
+    public void addPassedQuestion(PassedQuestion passedQuestion) {
+        passedQuestionList.add(passedQuestion);
+        passedQuestion.setPass(this);
     }
 
 }

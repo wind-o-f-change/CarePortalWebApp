@@ -2,10 +2,9 @@ package ru.careportal.core.security;
 
 import ru.careportal.core.db.model.Role;
 
-import javax.persistence.RollbackException;
-
 /**
- * Defines pages depends on users or their roles
+ * Defines pages depends on users or their roles.
+ * Класс опредляет стартовую/первую страницу в зависимости от пользователя или роли пользовтеля
  */
 class UserStartPageDeterminant {
 	/**

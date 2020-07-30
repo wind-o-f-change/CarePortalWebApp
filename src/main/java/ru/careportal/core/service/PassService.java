@@ -2,8 +2,7 @@ package ru.careportal.core.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.careportal.core.data.AnketaRepo;
-import ru.careportal.core.data.PassRepo;
+import ru.careportal.core.data.PassedAnketaRepo;
 import ru.careportal.core.db.model.*;
 import ru.careportal.core.dto.AnswerDto;
 import ru.careportal.core.dto.PassDto;
@@ -11,21 +10,21 @@ import ru.careportal.core.dto.QuestionDto;
 
 @Service
 public class PassService {
-    private PassRepo passRepo;
+    private PassedAnketaRepo passedAnketaRepo;
     private AnketaService anketaService;
     private UserService userService;
     private QuestionService questionService;
 
     @Autowired
-    public PassService(PassRepo passRepo, AnketaService anketaService, UserService userService, QuestionService questionService) {
-        this.passRepo = passRepo;
+    public PassService(PassedAnketaRepo passedAnketaRepo, AnketaService anketaService, UserService userService, QuestionService questionService) {
+        this.passedAnketaRepo = passedAnketaRepo;
         this.anketaService = anketaService;
         this.userService = userService;
         this.questionService = questionService;
     }
 
-    public Pass save(Pass pass) {
-        return  passRepo.save(pass);
+    public PassedAnketa save(PassedAnketa passedAnketa) {
+        return  passedAnketaRepo.save(passedAnketa);
     }
 
     public PassDto getPassDtoByAnketaId(Integer id) {
@@ -52,14 +51,14 @@ public class PassService {
         Anketa anketa = anketaService.getAnketa(passDto.getAnketaId());
         User user = userService.findByUsername(userName);
 
-        Pass pass = new Pass(anketa, user);
+        PassedAnketa passedAnketa = new PassedAnketa(anketa, user);
         for (QuestionDto questionDto : passDto.getQuestionDtoList()) {
             PassedQuestion passedQuestion = new PassedQuestion();
             passedQuestion.setQuestion(questionService.getQuestion(questionDto.getId()));
             passedQuestion.setAnswer(questionService.getAnswer(questionDto.getChosenAnswerId()));
-            pass.addPassedQuestion(passedQuestion);
+            passedAnketa.addPassedQuestion(passedQuestion);
         }
 
-        save(pass);
+        save(passedAnketa);
     }
 }

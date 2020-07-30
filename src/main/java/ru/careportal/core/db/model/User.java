@@ -3,7 +3,6 @@ package ru.careportal.core.db.model;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.careportal.core.db.model.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -31,7 +30,7 @@ public class User implements UserDetails {
     private Date created;
 
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
-    private List<Pass> passList = new ArrayList<>();
+    private List<PassedAnketa> passedAnketaList = new ArrayList<>();
 
     @PrePersist
     private void setCreated() {

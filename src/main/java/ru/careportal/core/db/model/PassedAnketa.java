@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor(access= AccessLevel.PROTECTED, force=true)
 @RequiredArgsConstructor
-public class Pass {
+public class PassedAnketa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pass_id")
@@ -34,7 +34,7 @@ public class Pass {
     @NonNull
     private User user;
 
-    @OneToMany(mappedBy="pass", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="passedAnketa", cascade = CascadeType.ALL)
     private List<PassedQuestion> passedQuestionList = new ArrayList<>();
 
     @PrePersist
@@ -44,7 +44,7 @@ public class Pass {
 
     public void addPassedQuestion(PassedQuestion passedQuestion) {
         passedQuestionList.add(passedQuestion);
-        passedQuestion.setPass(this);
+        passedQuestion.setPassedAnketa(this);
     }
 
 }

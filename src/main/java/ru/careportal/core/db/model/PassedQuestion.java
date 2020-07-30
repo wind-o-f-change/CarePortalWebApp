@@ -15,7 +15,7 @@ public class PassedQuestion {
 
     @ManyToOne
     @JoinColumn(name="pass_id", nullable=false)
-    private Pass pass;
+    private PassedAnketa passedAnketa;
 
     @ManyToOne
     @JoinColumn(name="question_id", nullable=false)

@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedPage("/accessDenied")
                 .and()
-                .formLogin().loginPage("/login").successHandler(myAuthenticationSuccessHandler()).permitAll()
+                .formLogin().loginPage("/login").usernameParameter("email").successHandler(myAuthenticationSuccessHandler()).permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/login").invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID").permitAll()

@@ -34,9 +34,9 @@
 <h3>Введите данные учетной записи</h3>
 <div>
     <form action="/login" method="post">
-        <div><label> User Name : <input type="text" name="username"/> </label></div>
-        <div><label> Password: <input type="password" name="password"/> </label></div>
-        <div><input type="submit" value="Sign in"/></div>
+        <div><label> Ваш email : <input type="email" name="email"/> </label></div>
+        <div><label> Пароль : <input type="password" name="password"/> </label></div>
+        <div><input type="submit" value="Войти"/></div>
         <c:if test="${not empty error}">
             <div class="ms_error">
                 <i class="fa fa-times-circle"></i>

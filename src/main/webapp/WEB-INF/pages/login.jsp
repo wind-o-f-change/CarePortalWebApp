@@ -1,3 +1,4 @@
+<%@ page import="org.springframework.security.web.WebAttributes" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE HTML>
@@ -9,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=cyrillic"
           rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/error-style.css">
     <script src="${pageContext.request.contextPath}/js/hamburger.js"></script>
     <title>${PageTitle}</title>
 </head>
@@ -35,6 +37,12 @@
         <div><label> User Name : <input type="text" name="username"/> </label></div>
         <div><label> Password: <input type="password" name="password"/> </label></div>
         <div><input type="submit" value="Sign in"/></div>
+        <c:if test="${not empty error}">
+            <div class="ms_error">
+                <i class="fa fa-times-circle"></i>
+                ${error}
+            </div>
+        </c:if>
     </form>
 </div>
 

@@ -5,9 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.careportal.core.db.model.User;
 import ru.careportal.core.security.RegistrationForm;
 import ru.careportal.core.service.UserService;
@@ -17,17 +15,17 @@ import java.util.Optional;
 
 @Slf4j
 @Controller
-@RequestMapping("/registration")
-public class RegistrationController {
+
+public class SecurityController {
     private UserService userService;
     private PasswordEncoder passwordEncoder;
 
-    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder) {
+    public SecurityController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         log.debug("registration");
         model.addAttribute("PageTitle", "Registration Page");
@@ -35,7 +33,7 @@ public class RegistrationController {
         return "baseTemplate";
     }
 
-    @PostMapping
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String processRegistration(@Valid RegistrationForm form, Model model, Errors errors) {
         log.debug("processRegistration");
         if (errors.hasErrors()) {
@@ -59,5 +57,14 @@ public class RegistrationController {
         userService.save(user);
         log.info(String.format("Сохранен пользователь: %s", user));
         return "redirect:/login";
+    }
+
+
+    @RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
+    public String loginFailure(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null && error.isEmpty()) {
+            model.addAttribute("error", "Неверный e-mail или пароль!");
+        }
+        return "login";
     }
 }

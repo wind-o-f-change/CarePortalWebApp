@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedPage("/accessDenied")
                 .and()
-                .formLogin().loginPage("/login").failureForwardUrl("/registration").successHandler(myAuthenticationSuccessHandler()).permitAll()
+                .formLogin().loginPage("/login").successHandler(myAuthenticationSuccessHandler()).permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/login").invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID").permitAll()
@@ -57,4 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
         return new DependsOnRoleUrlAuthenticationSuccessHandler();
     }
+
+
 }

@@ -34,7 +34,7 @@ public class SecurityController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String processRegistration(@Valid RegistrationForm form, Model model, Errors errors) {
+    public String processRegistration(RegistrationForm form, Model model, Errors errors) {
         log.debug("processRegistration");
         if (errors.hasErrors()) {
             model.addAttribute("message", "Не все данные были заполнены");
@@ -45,12 +45,12 @@ public class SecurityController {
         }
 
         User user = form.toUser(passwordEncoder);
-        Optional<User> userFromDB = userService.findByUsername(user.getUsername());
+        Optional<User> userFromDB = userService.findByEmail(user.getEmail());
         if (userFromDB.isPresent()) {
             model.addAttribute("message", "Пользователь с таким именем уже зарегистрирован");
             model.addAttribute("PageTitle", "Страница регистрации");
             model.addAttribute("PageBody", "reg.jsp");
-            log.debug(String.format("Пользователь с именем '%s' уже зарегестрирован", userFromDB.get().getUsername()));
+            log.debug(String.format("Пользователь с email '%s' уже зарегестрирован", userFromDB.get().getEmail()));
             return "baseTemplate";
         }
 

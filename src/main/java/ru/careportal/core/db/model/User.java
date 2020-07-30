@@ -5,31 +5,33 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "users")
 @Data
 @NoArgsConstructor(access= AccessLevel.PROTECTED, force=true)
 @RequiredArgsConstructor
-public class User implements UserDetails {
+public abstract class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(unique = true)
-    @NotNull
-    @Size(min=2, message="Имя должно быть больше 2 символов")
-    @NonNull private String username;
-    @NotNull
-    @Size(min=2, message="Пароль должно быть больше 2 символов")
-    @NonNull private String password;
-    @NotNull
+    @NonNull
+    private String email;
+    @NonNull
+    private String password;
+    @Column(name = "fullName")
+    private String fullName;
+    @Enumerated(EnumType.STRING)
+    private Sex sex;
+    @Enumerated(EnumType.STRING)
     private Role role;
     private Date created;
+    private boolean enabled = true; // вместо approved (isEnabled метод интерфейса UserDetails)
 
     @PrePersist
     private void setCreated() {
@@ -39,6 +41,11 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(role);
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @Override
@@ -58,6 +65,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }

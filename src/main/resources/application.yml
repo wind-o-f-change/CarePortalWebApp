@@ -6,9 +6,9 @@ spring:
       prefix: /WEB-INF/pages/
       suffix: .jsp
   datasource:
-    url: jdbc:postgresql://localhost:5432/command_app
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: 4444
+    password: 12345
   jpa:
     generate-ddl: true
     show-sql: true

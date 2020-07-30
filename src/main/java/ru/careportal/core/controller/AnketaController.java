@@ -10,8 +10,6 @@ import ru.careportal.core.db.model.Anketa;
 import ru.careportal.core.service.AnketaService;
 import ru.careportal.core.service.NoEntityException;
 
-import java.util.Optional;
-
 @Slf4j
 @Controller
 public class AnketaController {

@@ -57,6 +57,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
         return new DependsOnRoleUrlAuthenticationSuccessHandler();
     }
-
-
 }

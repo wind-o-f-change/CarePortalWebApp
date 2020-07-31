@@ -7,6 +7,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import ru.careportal.core.db.model.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,19 +67,12 @@ public class DependsOnRoleUrlAuthenticationSuccessHandler implements Authenticat
      */
 
     protected String determineTargetUrl(final Authentication authentication) {
-        //TODO после реализации задачи с добавлением ROLE_NOBODY и внедрением метода getHomeUrl реализовать метод с использованием enum Role
-        Map<String, String> roleTargetUrlMap = new HashMap<>();
-        roleTargetUrlMap.put("ROLE_PATIENT", "/patient");
-        roleTargetUrlMap.put("ROLE_DOCTOR", "/doctor");
-        roleTargetUrlMap.put("ROLE_ADMIN", "/admin");
-
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {
 
             String authorityName = grantedAuthority.getAuthority();
-            if(roleTargetUrlMap.containsKey(authorityName)) {
-                return roleTargetUrlMap.get(authorityName);
-            }
+            Role role = Role.valueOf(authorityName);
+            return new UserStartPageDeterminant().definePageByRole(role);
         }
 
         throw new IllegalStateException();

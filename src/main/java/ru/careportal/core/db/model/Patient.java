@@ -15,11 +15,11 @@ import java.util.List;
 public class Patient extends User {
     @ManyToOne
     private Doctor doctor;
-    @Column(name = "birthDay")
+    @Column(name = "birth_day")
     private Calendar birthDay;
-    @OneToMany
-    @Column(name = "ankets")
-    private List<Anketa> ankets = new ArrayList<>();
+
+    @OneToMany(mappedBy="patient", cascade = CascadeType.ALL)
+    private List<PassedAnketa> passedAnketaList = new ArrayList<>();
 
     public Patient(String email, String password) {
         super(email, password);
@@ -38,7 +38,7 @@ public class Patient extends User {
                 ", approved=" + isEnabled() +
                 ", doctor=" + doctor +
                 ", birthDay=" + birthDay +
-                ", ankets=" + ankets +
+                ", passedAnketaList=" + passedAnketaList +
                 '}';
     }
 }

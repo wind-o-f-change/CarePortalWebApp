@@ -32,7 +32,7 @@ public class PassedAnketa {
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     @NonNull
-    private User user;
+    private Patient patient;
 
     @OneToMany(mappedBy="passedAnketa", cascade = CascadeType.ALL)
     private List<PassedQuestion> passedQuestionList = new ArrayList<>();

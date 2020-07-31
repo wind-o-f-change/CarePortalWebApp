@@ -47,9 +47,9 @@ public class PassService {
         return passDto;
     }
 
-    public void savePassedAnketa(PassDto passDto, String userName) {
+    public void savePassedAnketa(PassDto passDto, String email) {
         Anketa anketa = anketaService.getAnketa(passDto.getAnketaId());
-        User user = userService.findByUsername(userName);
+        Patient user = (Patient) userService.findByEmail(email).get();
 
         PassedAnketa passedAnketa = new PassedAnketa(anketa, user);
         for (QuestionDto questionDto : passDto.getQuestionDtoList()) {

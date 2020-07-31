@@ -5,28 +5,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import ru.careportal.core.db.model.Anketa;
-import ru.careportal.core.service.AnketaService;
-import ru.careportal.core.service.NoEntityException;
+import org.springframework.web.bind.annotation.PostMapping;
+import ru.careportal.core.dto.PassDto;
+import ru.careportal.core.service.*;
+
+import java.security.Principal;
 
 @Slf4j
 @Controller
 public class AnketaController {
-    private AnketaService anketaService;
+    private PassService passService;
 
     @Autowired
-    public AnketaController(AnketaService anketaService) {
-        this.anketaService = anketaService;
+    public AnketaController(PassService passService) {
+        this.passService = passService;
     }
 
     @GetMapping("/anketa/{id}")
-    public String showAnketa(Model model, @PathVariable("id") Integer id) throws NoEntityException {
-        Anketa anketa = anketaService.getAnketa(id);
+    public String showAnketa(Model model, @PathVariable("id") Integer id) {
+        PassDto passDto = passService.getPassDtoByAnketaId(id);
 
-        model.addAttribute("anketa", anketa);
-        model.addAttribute("PageTitle", anketa.getName());
+        model.addAttribute("passDto", passDto);
         model.addAttribute("PageBody", "anketa.jsp");
+        return "baseTemplate";
+    }
+
+    @PostMapping("/passed-anketa")
+    public String saveAnketa(Model model, Principal principal, @ModelAttribute("passDto") PassDto passDto) {
+        passService.savePassedAnketa(passDto, principal.getName());
+
+        model.addAttribute("PageTitle", passDto.getAnketaName());
+        model.addAttribute("PageBody", "anketa-saved.jsp");
         return "baseTemplate";
     }
 }

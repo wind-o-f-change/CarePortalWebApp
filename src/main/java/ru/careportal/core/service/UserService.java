@@ -16,8 +16,8 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public User findByUsername(String username) {
-        return userRepo.findByUsername(username).orElseThrow(NoEntityException::new);
+    public Optional<User> findByEmail(String email) {
+        return userRepo.findByEmail(email);
     }
 
     public Optional<User> findById(Long id) {

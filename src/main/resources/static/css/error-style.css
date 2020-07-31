@@ -1,0 +1,15 @@
+@import url('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
+
+.ms_error {
+    margin: 10px 0px;
+    padding:12px 30px 12px 12px;
+    color: #D8000C;
+    background-color: #FFBABA;
+    width: fit-content;
+}
+
+.ms_error i {
+    margin:10px 22px;
+    font-size:2em;
+    vertical-align:middle;
+}

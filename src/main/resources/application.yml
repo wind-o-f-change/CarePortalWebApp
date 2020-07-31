@@ -6,11 +6,11 @@ spring:
       prefix: /WEB-INF/pages/
       suffix: .jsp
   datasource:
-    url: jdbc:postgresql://localhost:5432/command_app
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: qwerty
+    password: 12345
   jpa:
     generate-ddl: true
     show-sql: true
     hibernate:
-     ddl-auto: update
+     ddl-auto: create-drop

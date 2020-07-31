@@ -5,9 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.careportal.core.db.model.User;
 import ru.careportal.core.security.RegistrationForm;
 import ru.careportal.core.service.UserService;
@@ -17,17 +15,17 @@ import java.util.Optional;
 
 @Slf4j
 @Controller
-@RequestMapping("/registration")
-public class RegistrationController {
+
+public class SecurityController {
     private UserService userService;
     private PasswordEncoder passwordEncoder;
 
-    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder) {
+    public SecurityController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         log.debug("registration");
         model.addAttribute("PageTitle", "Registration Page");
@@ -35,8 +33,8 @@ public class RegistrationController {
         return "baseTemplate";
     }
 
-    @PostMapping
-    public String processRegistration(@Valid RegistrationForm form, Model model, Errors errors) {
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public String processRegistration(RegistrationForm form, Model model, Errors errors) {
         log.debug("processRegistration");
         if (errors.hasErrors()) {
             model.addAttribute("message", "Не все данные были заполнены");
@@ -47,18 +45,26 @@ public class RegistrationController {
         }
 
         User user = form.toUser(passwordEncoder);
-        User userFromDB = userService.findByUsername(user.getUsername());
-        // переделать в рамках security
-        if (userFromDB != null) {
+        Optional<User> userFromDB = userService.findByEmail(user.getEmail());
+        if (userFromDB.isPresent()) {
             model.addAttribute("message", "Пользователь с таким именем уже зарегистрирован");
             model.addAttribute("PageTitle", "Страница регистрации");
             model.addAttribute("PageBody", "reg.jsp");
-            log.debug(String.format("Пользователь с именем '%s' уже зарегестрирован", userFromDB.getUsername()));
+            log.debug(String.format("Пользователь с email '%s' уже зарегестрирован", userFromDB.get().getEmail()));
             return "baseTemplate";
         }
 
         userService.save(user);
         log.info(String.format("Сохранен пользователь: %s", user));
         return "redirect:/login";
+    }
+
+
+    @RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
+    public String loginFailure(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null && error.isEmpty()) {
+            model.addAttribute("error", "Неверный e-mail или пароль!");
+        }
+        return "login";
     }
 }

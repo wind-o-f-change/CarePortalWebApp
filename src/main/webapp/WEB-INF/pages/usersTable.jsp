@@ -1,22 +1,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<a href="/admin"><h2>Личный кабинет</h2></a>
+<h5>Вы зашли как: ${admin_name}</h5>
+<a href="/admin"><h4>Личный кабинет</h4></a>
 <table>
     <tr>
-        <th><h3>Ф.И.О</h3></th>
-        <th><h3>Активирован</h3></th>
-        <th><h3>email</h3></th>
-        <th><h3>Пол</h3></th>
-        <th><h3>Роль</h3></th>
-        <th><h3>Дата создания</h3></th>
+        <th><h5>Id</h5></th>
+        <th><h5>Ф.И.О</h5></th>
+        <th><h5>Активирован</h5></th>
+        <th><h5>email</h5></th>
+        <th><h5>Пол</h5></th>
+        <th><h5>Роль</h5></th>
+        <th><h5>Дата создания</h5></th>
         <c:forEach var="admin" items="${list_users}">
             <tr>
-                <th><h4><c:out value="${admin.getFullName()}"/></h4></th>
-                <th><h4><c:out value="${admin.isEnabled()}"/></h4></th>
-                <th><h4><c:out value="${admin.getEmail()}"/></h4></th>
-                <th><h4><c:out value="${admin.getSex()}"/></h4></th>
-                <th><h4><c:out value="${admin.getRole()}"/></h4></th>
-                <th><h4><c:out value="${admin.getCreated()}"/></h4></th>
+                <th><h5><c:out value="${admin.getId()}"/></h5></th>
+                <th><h5><c:out value="${admin.getFullName()}"/></h5></th>
+                <th><h5><c:out value="${admin.isEnabled()}"/></h5></th>
+                <th><h5><c:out value="${admin.getEmail()}"/></h5></th>
+                <th><h5><c:out value="${admin.getSex()}"/></h5></th>
+                <th><h5><c:out value="${admin.getRole()}"/></h5></th>
+                <th><h5><c:out value="${admin.getCreated()}"/></h5></th>
             </tr>
         </c:forEach>
     </tr>

@@ -40,6 +40,7 @@ public class AdminController {
     public String adminFunc(Model model, String find_action, @AuthenticationPrincipal User admin) {
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin.jsp");
+        model.addAttribute("list_body", "usersTable.jsp");
         model.addAttribute("admin_name", admin.getFullName());
         switch (find_action) {
             case FindAction.PATIENT_DOCTOR:
@@ -54,9 +55,11 @@ public class AdminController {
             case FindAction.ADMIN:
                 model.addAttribute("list_users", userService.findByRole(Role.ROLE_ADMIN));
                 break;
-            case FindAction.NOT_ENABLED:
-                // пока неподтвержденных нет будем искать подтвержденных)
+            case FindAction.ENABLED:
                 model.addAttribute("list_users", userService.findByEnabled(true));
+                break;
+            case FindAction.NOT_ENABLED:
+                model.addAttribute("list_users", userService.findByEnabled(false));
                 break;
         }
         return "baseTemplate";

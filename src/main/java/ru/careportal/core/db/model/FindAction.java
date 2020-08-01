@@ -6,5 +6,6 @@ public class FindAction {
             PATIENT = "PATIENT",
             DOCTOR = "DOCTOR",
             ADMIN = "ADMIN",
+            ENABLED = "ENABLED",
             NOT_ENABLED = "NOT_ENABLED";
 }

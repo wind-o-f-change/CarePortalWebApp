@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <div class="fixed-container">
     <div id="logo"><img alt="logo" src="${pageContext.request.contextPath}/img/logo.png"></div>
     <div id="mail-us">
@@ -18,7 +20,8 @@
     </div>
     <nav>
         <ul id="menu" class="menu">
-            <li><a href="${pageContext.request.contextPath}" class="checked-a">Личный кабинет</a></li>
+            <sec:authentication property="principal.authorities" var="role"/>
+            <li><a href="/${role.toString().substring(6, role.toString().length()-1).toLowerCase()}" class="checked-a">Личный кабинет</a></li>
             <li><a href="/logout">Выйти</a></li>
         </ul>
     </nav>

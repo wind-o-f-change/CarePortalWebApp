@@ -7,12 +7,15 @@
     <div><label> Password: <input type="password" name="password"/> </label></div>
     <div><label> Full name: <input type="text" name="fullName"/> </label></div>
     <div>
-        <label> Я хочу быть пациентом <input type="radio" value="ROLE_PATIENT" name="roleName"/>  </label><br>
+        <label> Я хочу быть пациентом <input id ="patient" type="radio" value="ROLE_PATIENT" name="roleName"/>  </label><br>
         <label> Я хочу быть доктором <input type="radio" value="ROLE_DOCTOR" name="roleName"/>  </label><br>
     </div>
     <div>
         <label> Я мужчина <input type="radio" value="MAN" name="sex"/>  </label><br>
         <label> Я женщина <input type="radio" value="WOMAN" name="sex"/>  </label><br>
+    </div>
+    <div id="date">
+        <label> Дата рождения <input type="date" name="birthDay"/>  </label><br>
     </div>
     <input type="hidden" name="_csrf" value="${_csrf.token}" />
 
@@ -21,4 +24,4 @@
 <br>
 <p>Уже зарегистрированы? <a href="/login">Войти в личный кабинет</a></p>
 <br>
-<a href="/">Вернуться на главную</a><br><br>
+<br>

@@ -162,6 +162,17 @@ main{
     background-color: #dbe1ee;
     min-height: 635px;
 }
+#date, #data, #anket-list, #fill-anket-list{
+    display: none;
+}
+.about-me, .av-ankets, .fill-ankets{
+    background-color: transparent;
+    display: inline-block;
+}
+input[type="image"]{
+    margin: 0;
+    transition: all 0.5s ease 0s; transform: rotate(0deg);
+}
 
 footer{
     height: 950px;

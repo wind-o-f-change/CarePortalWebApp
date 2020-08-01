@@ -18,7 +18,7 @@
         <form:hidden path="passDto.questionDtoList[${vsq.index}].text"/>
         <p>${question.text}</p>
         <c:forEach var="answer" items="${question.answerDtoList}" varStatus="vsa">
-            <form:radiobutton path="passDto.questionDtoList[${vsq.index}].chosenAnswerId" value="${answer.id}" label="${answer.text}" cssClass="styled"/>
+            <form:radiobutton path="passDto.questionDtoList[${vsq.index}].chosenAnswerId" required="required" value="${answer.id}" label="${answer.text}" cssClass="styled"/>
         </c:forEach>
         <br>
     </c:forEach>

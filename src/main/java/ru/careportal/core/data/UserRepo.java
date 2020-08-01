@@ -11,4 +11,8 @@ public interface UserRepo extends CrudRepository<User, Long> {
     Optional<User> findByEmail(String email);
 
     List<User> findByRoleNot(Role role);
+
+    List<User> findByRole(Role role);
+
+    List<User> findByEnabled(boolean enabled);
 }

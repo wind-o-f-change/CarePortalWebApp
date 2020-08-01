@@ -30,6 +30,14 @@ public class UserService {
         return userRepo.findByRoleNot(role);
     }
 
+    public List<User> findByRole(Role role){
+        return userRepo.findByRole(role);
+    }
+
+    public List<User> findByEnabled(Boolean enabled){
+        return userRepo.findByEnabled(enabled);
+    }
+
     public void save(User user) {
         userRepo.save(user);
     }

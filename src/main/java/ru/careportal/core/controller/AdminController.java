@@ -37,11 +37,12 @@ public class AdminController {
     }
 
     @PostMapping
-    public String adminFunc(Model model, String find_action, @AuthenticationPrincipal User admin) {
+    public String showUsers(Model model, String find_action, @AuthenticationPrincipal User admin) {
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin.jsp");
         model.addAttribute("list_body", "usersTable.jsp");
         model.addAttribute("admin_name", admin.getFullName());
+
         switch (find_action) {
             case FindAction.PATIENT_DOCTOR:
                 model.addAttribute("list_users", userService.findByRoleNot(Role.ROLE_ADMIN));

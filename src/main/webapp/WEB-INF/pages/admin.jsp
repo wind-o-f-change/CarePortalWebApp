@@ -4,7 +4,7 @@
 <h3>Кабинет администратора</h3></p>
 <div>
     <form method="post" action="/admin">
-        <h4>Выбирите действие: <select name="find_action" required>
+        <h4>Выберите действие: <select name="find_action" required>
             <option selected value="NOT_ENABLED">Не подтвержденные</option>
             <option value="ENABLED">Подтвержденные</option>
             <option value="PATIENT_DOCTOR">Все пользователи</option>

@@ -4,11 +4,12 @@
 <form action="/registration" method="post">
     <span>${message}</span>
     <div><label> Ваш email : <input type="email" name="email"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><label> Full name: <input type="text" name="fullName"/> </label></div>
+    <div><label> Пароль : <input type="password" name="password"/> </label></div>
+    <div><label> Ф.И.О : <input type="text" name="fullName"/> </label></div>
     <div>
         <label> Я хочу быть пациентом <input id ="patient" type="radio" value="ROLE_PATIENT" name="roleName"/>  </label><br>
         <label> Я хочу быть доктором <input type="radio" value="ROLE_DOCTOR" name="roleName"/>  </label><br>
+        <label> Я хочу быть admin <input type="radio" value="ROLE_ADMIN" name="roleName"/>  </label><br>
     </div>
     <div>
         <label> Я мужчина <input type="radio" value="MAN" name="sex"/>  </label><br>

@@ -60,4 +60,23 @@ $(function () {
         };
     });
 
+    $('.patient-list').on('click', function () {
+        if ($('#p-list').is(':visible')) {
+            $('#p-list').hide(400);
+        } else {
+            $('#p-list').show(400);
+        };
+
+        if ( $('input.patient-list').css('transform') == 'matrix(1, 0, 0, 1, 0, 0)'){
+            $('input.patient-list').css({
+                transition: 'all 0.4s',
+                transform: 'rotate(90deg)'
+            });
+        } else  {
+            $('input.patient-list').css({
+                transition: 'all 0.4s',
+                transform: 'rotate(0deg)'
+            });
+        };
+    });
 })

@@ -39,12 +39,12 @@
         <tr>
             <th>Назначенный врач</th>
 
-            <c:set var="doctor" value="${user.doctor}"/>
+            <c:set var="doctor" value="${user.doctor.getFullName()}"/>
             <c:if test="${doctor == null}">
                 <td>Не назначено</td>
             </c:if>
             <c:if test="${doctor != null}">
-                <td>${user.doctor}</td>
+                <td>${user.doctor.getFullName()}</td>
             </c:if>
         </tr>
     </table>
@@ -60,6 +60,7 @@
     </c:forEach>
 </ul>
 <br>
+
 <input type="image" class="fill-ankets" alt="Заполненные анкеты"
        src="${pageContext.request.contextPath}/img/point.png"/>
 <h3 class="fill-ankets">Заполненные анкеты</h3>

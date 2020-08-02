@@ -45,7 +45,7 @@
 <c:if test="${user.getPatients().size() >= 1}">
     <ol id="p-list">
         <c:forEach var="patient" items="${user.getPatients()}">
-            <li><a href="#">${patient.fullName}</a></li>
+            <li><a target="_blank" href="doctor/showPatient/${patient.getId()}">${patient.fullName}</a></li>
         </c:forEach>
     </ol>
 </c:if>

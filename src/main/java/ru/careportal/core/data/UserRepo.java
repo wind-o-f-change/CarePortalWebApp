@@ -5,6 +5,6 @@ import ru.careportal.core.db.model.User;
 
 import java.util.Optional;
 
-public interface UserRepo extends CrudRepository<User, Long> {
+public interface UserRepo extends CrudRepository<User, Integer> {
     Optional<User> findByEmail(String email);
 }

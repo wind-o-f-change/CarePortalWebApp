@@ -20,7 +20,7 @@ public class UserService {
         return userRepo.findByEmail(email);
     }
 
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(Integer id) {
         return userRepo.findById(id);
     }
 

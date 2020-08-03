@@ -9,7 +9,6 @@
     <div>
         <label> Я хочу быть пациентом <input id ="patient" type="radio" value="ROLE_PATIENT" name="roleName"/>  </label><br>
         <label> Я хочу быть доктором <input type="radio" value="ROLE_DOCTOR" name="roleName"/>  </label><br>
-        <label> Я хочу быть админом <input type="radio" value="ROLE_ADMIN" name="roleName"/>  </label><br>
     </div>
     <div>
         <label> Я мужчина <input type="radio" value="MAN" name="sex"/>  </label><br>

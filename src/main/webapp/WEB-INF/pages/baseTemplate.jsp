@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/error-style.css">
     <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/hamburger.js"></script>
+    <script src="${pageContext.request.contextPath}/js/saveCookieFilter.js"></script>
     <script src="${pageContext.request.contextPath}/js/reg.js"></script>
     <script src="${pageContext.request.contextPath}/js/show-hide.js"></script>
     <title>${PageTitle}</title>

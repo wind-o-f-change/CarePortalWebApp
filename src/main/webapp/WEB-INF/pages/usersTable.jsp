@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <c:if test="${list_users.size() > 0}">
+    <c:set var="isEnabled" value="${admin.isEnabled()}"/>
 <table>
     <tr>
         <th><h5>Id</h5></th>
@@ -10,6 +11,7 @@
         <th><h5>Пол</h5></th>
         <th><h5>Роль</h5></th>
         <th><h5>Дата создания</h5></th>
+<%--        <th><h5>Профиль</h5></th>--%>
         <c:forEach var="admin" items="${list_users}">
 
             <tr>
@@ -20,9 +22,12 @@
                 <th><h5><c:out value="${admin.getSex()}"/></h5></th>
                 <th><h5><c:out value="${admin.getRole()}"/></h5></th>
                 <th><h5><c:out value="${admin.getCreated()}"/></h5></th>
+                <th><h5><c:out value="${admin.getCreated()}"/></h5></th>
+<%-- // добавить ссылку на страницу детализации юзера(не на личную) по типу как у ксении--%>
             </tr>
         </c:forEach>
     </tr>
+
 </table>
 </c:if>
 <c:if test="${list_users.size() < 1}">

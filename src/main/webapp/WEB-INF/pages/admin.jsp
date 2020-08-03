@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <p><h5>Вы зашли как: ${admin_name}</h5>
-<h3>Кабинет администратора</h3></p>
+<h4>Кабинет администратора</h4></p>
 <div>
     <form method="post" action="/admin">
         <h4>Выберите действие: <select name="find_action" required>

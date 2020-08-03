@@ -17,7 +17,7 @@ import java.util.Optional;
 @Slf4j
 @Controller
 @RequestMapping("/patient")
-@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_PATIENT')")
+@PreAuthorize("hasAuthority('ROLE_PATIENT')")
 public class PatientController {
     private UserService userService;
     private AnketaService anketaService;

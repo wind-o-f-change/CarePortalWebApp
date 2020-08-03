@@ -44,7 +44,7 @@ public class DoctorController {
     }
 
     @GetMapping(value = "/doctor/showPatient/{id}")
-    public String showPatient(Model model, @PathVariable("id") Integer id){
+    public String showPatient(Model model, @PathVariable("id") Long id){
         Optional<User> userFromDB = userService.findById(id);
         if (userFromDB.isPresent()) {
             model.addAttribute("user", userFromDB.get());

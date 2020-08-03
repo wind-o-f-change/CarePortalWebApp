@@ -162,10 +162,10 @@ main{
     background-color: #dbe1ee;
     min-height: 635px;
 }
-#date, #data, #anket-list, #fill-anket-list{
+#date, #data, #anket-list, #fill-anket-list, #p-list{
     display: none;
 }
-.about-me, .av-ankets, .fill-ankets{
+.about-me, .av-ankets, .fill-ankets, .patient-list{
     background-color: transparent;
     display: inline-block;
 }

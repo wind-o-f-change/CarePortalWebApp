@@ -19,7 +19,7 @@ public abstract class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    private Integer id;
+    private Long id;
     @Column(unique = true)
     @NonNull
     private String email;

@@ -1,7 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<h2>Личный кабинет пациента<br>${user.fullName}</h2>
+<c:if test="${pageContext.request.isUserInRole('ROLE_PATIENT')}">
+    <h2>Личный кабинет пациента<br>${user.fullName}</h2>
+</c:if>
+<c:if test="${pageContext.request.isUserInRole('ROLE_DOCTOR')}">
+    <h2>Сведения о пациенте<br>${user.fullName}</h2>
+</c:if>
 <br>
 <input type="image" class="about-me" alt="Личные данные"
        src="${pageContext.request.contextPath}/img/point.png"/>
@@ -39,18 +44,21 @@
         <tr>
             <th>Назначенный врач</th>
 
-            <c:set var="doctor" value="${user.doctor}"/>
+            <c:set var="doctor" value="${user.doctor.getFullName()}"/>
             <c:if test="${doctor == null}">
                 <td>Не назначено</td>
             </c:if>
             <c:if test="${doctor != null}">
-                <td>${user.doctor}</td>
+                <td>${user.doctor.getFullName()}</td>
             </c:if>
         </tr>
     </table>
-    <button>Редактировать</button>
+    <c:if test="${pageContext.request.isUserInRole('ROLE_PATIENT')}">
+        <button>Редактировать</button>
+    </c:if>
 </section>
 <br>
+<c:if test="${pageContext.request.isUserInRole('ROLE_PATIENT')}">
 <input type="image" class="av-ankets" alt="Доступные анкеты"
        src="${pageContext.request.contextPath}/img/point.png"/>
 <h3 class="av-ankets">Доступные анкеты</h3>
@@ -60,6 +68,7 @@
     </c:forEach>
 </ul>
 <br>
+</c:if>
 <input type="image" class="fill-ankets" alt="Заполненные анкеты"
        src="${pageContext.request.contextPath}/img/point.png"/>
 <h3 class="fill-ankets">Заполненные анкеты</h3>

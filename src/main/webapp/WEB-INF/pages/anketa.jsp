@@ -9,16 +9,16 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<h1>${passDto.anketaName}</h1>
-<form method="POST" action="/passed-anketa" modelAttribute="passDto">
-    <form:hidden path="passDto.anketaId"/>
-    <form:hidden path="passDto.anketaName"/>
-    <c:forEach var="question" items="${passDto.questionDtoList}" varStatus="vsq">
-        <form:hidden path="passDto.questionDtoList[${vsq.index}].id"/>
-        <form:hidden path="passDto.questionDtoList[${vsq.index}].text"/>
+<h1>${passedAnketaDto.anketaName}</h1>
+<form method="POST" action="/passed-anketa" modelAttribute="passedAnketaDto">
+    <form:hidden path="passedAnketaDto.anketaId"/>
+    <form:hidden path="passedAnketaDto.anketaName"/>
+    <c:forEach var="question" items="${passedAnketaDto.questionDtoList}" varStatus="vsq">
+        <form:hidden path="passedAnketaDto.questionDtoList[${vsq.index}].id"/>
+        <form:hidden path="passedAnketaDto.questionDtoList[${vsq.index}].text"/>
         <p>${question.text}</p>
         <c:forEach var="answer" items="${question.answerDtoList}" varStatus="vsa">
-            <form:radiobutton path="passDto.questionDtoList[${vsq.index}].chosenAnswerId" required="required" value="${answer.id}" label="${answer.text}" cssClass="styled"/>
+            <form:radiobutton path="passedAnketaDto.questionDtoList[${vsq.index}].chosenAnswerId" required="required" value="${answer.id}" label="${answer.text}" cssClass="styled"/>
         </c:forEach>
         <br>
     </c:forEach>

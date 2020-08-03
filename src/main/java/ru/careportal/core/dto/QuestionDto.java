@@ -10,5 +10,6 @@ public class QuestionDto {
     private Integer id;
     private String text;
     private Integer chosenAnswerId;
+    private String chosenAnswerText;
     private List<AnswerDto> answerDtoList = new ArrayList<>();
 }

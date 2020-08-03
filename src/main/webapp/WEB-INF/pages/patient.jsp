@@ -64,7 +64,7 @@
        src="${pageContext.request.contextPath}/img/point.png"/>
 <h3 class="fill-ankets">Заполненные анкеты</h3>
 <ul id="fill-anket-list">
-    <a href="#">Ссылка в разработке</a>
+    <a href="${pageContext.request.contextPath}/passed-anketa-list">Заполненные анкеты</a>
 </ul>
 
 <br><br><br>

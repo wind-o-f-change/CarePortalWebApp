@@ -21,9 +21,9 @@ public class AopConfig {
         log.debug(point.toShortString());
     }
 
-    @AfterThrowing("controllersPoint()")
-    public void logErrorControllers(JoinPoint point) {
-        log.error(point.toLongString());
+    @AfterThrowing(value = "controllersPoint()", throwing = "e")
+    public void logErrorControllers(JoinPoint point, Throwable e) {
+        log.warn(String.format("%s method throw exception: %s", point.toShortString(), e));
     }
 
     @Pointcut("within(ru.careportal.core.service..*)")
@@ -34,8 +34,8 @@ public class AopConfig {
         log.debug(point.toShortString());
     }
 
-    @AfterThrowing("servicesPoint()")
-    public void logErrServices(JoinPoint point){
-        log.error(point.toShortString());
+    @AfterThrowing(value = "servicesPoint()", throwing = "e")
+    public void logErrServices(JoinPoint point, Throwable e){
+        log.warn(String.format("%s method throw exception: %s", point.toShortString(), e));
     }
 }

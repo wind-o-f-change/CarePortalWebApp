@@ -79,4 +79,13 @@ $(function () {
             });
         };
     });
+
+    $('#checkAll').on('click', function(){
+        if ( $('#checkAll').prop('checked')) {
+            $('input').prop('checked', true);
+        } else {
+            $('input').prop('checked', false);
+        }
+        console.log('click');
+    });
 })

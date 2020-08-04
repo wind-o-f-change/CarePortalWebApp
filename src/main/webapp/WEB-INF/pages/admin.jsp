@@ -16,7 +16,7 @@
 
     </form>
 </div>
-<div class="fixed-container">
+<div>
     <c:set var="pageBody" value="${list_body}"/>
     <c:if test="${pageBody != null}">
         <c:import url="${list_body}"/>

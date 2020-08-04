@@ -1,6 +1,10 @@
 package ru.careportal.core.data;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 import ru.careportal.core.db.model.Role;
 import ru.careportal.core.db.model.User;
 
@@ -15,4 +19,11 @@ public interface UserRepo extends CrudRepository<User, Long> {
     List<User> findByRole(Role role);
 
     List<User> findByEnabled(boolean enabled);
+
+    @Modifying
+    @Transactional
+    @Query("update User u set u.enabled = :enabled where u.id = :id")
+    void updateUserEnabledStatus(@Param("enabled") boolean enabled, @Param("id") Long id);
+
+
 }

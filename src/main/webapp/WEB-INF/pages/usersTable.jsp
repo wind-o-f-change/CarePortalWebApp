@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:if test="${userChangesDto.getUsers().size() >= 1}">
 <form:form action="/admin/saveUsersChanges" method="post" modelAttribute="userChangesDto">
 
@@ -37,12 +38,19 @@
             </td>
             <td>
                 <c:out value="${user.getEmail()}"/></td>
-            <td>
-                <c:out value="${user.getSex()}"/></td>
+            <c:set var="sex" value="${user.sex}"/>
+            <c:set var="MAN" value="MAN"/>
+            <c:set var="WOMAN" value="WOMAN"/>
+            <c:if test="${sex == MAN}">
+                <td>Мужской</td>
+            </c:if>
+            <c:if test="${sex == WOMAN}">
+                <td>Женский</td>
+            </c:if>
             <td>
                 <c:out value="${user.getRole()}"/></td>
             <td>
-                <c:out value="${user.getCreated()}"/></td>
+                <fmt:formatDate value="${user.getCreated()}" pattern="yyyy-MM-dd HH:mm"/></td>
                 <%-- // добавить ссылку на страницу детализации юзера(не на личную) по типу как у ксении--%>
         </tr>
 

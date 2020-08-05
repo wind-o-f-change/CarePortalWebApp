@@ -82,10 +82,9 @@ public class AdminController {
     @PostMapping("/saveUsersChanges")
     public String saveChanges(Model model, @ModelAttribute("userChangesDto") UserChangesDto userChangesDto) {
         userChangesDto.getUsers().forEach(userDto -> userService.updateEnabledStatus(userDto.isEnabled(), userDto.getId()));
-
         model.addAttribute("PageTitle", "Администратор");
-        model.addAttribute("PageBody", "admin-saved.jsp");
-
+        model.addAttribute("PageBody", "admin.jsp");
+        model.addAttribute("message","Изменения успешно сохранены!");
         return "baseTemplate";
     }
 }

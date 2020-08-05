@@ -88,4 +88,8 @@ $(function () {
         }
         console.log('click');
     });
+
+    $( "input[type=checkbox]" )
+        .parents('td')
+        .addClass( "center-td" );
 })

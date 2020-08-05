@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=cyrillic"
           rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/error-style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/messages.css">
     <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/hamburger.js"></script>
     <script src="${pageContext.request.contextPath}/js/saveCookieFilter.js"></script>

@@ -8,11 +8,6 @@ import ru.careportal.core.db.model.User;
 
 import java.util.Date;
 
-/**
- * UserDto
- * created by Ksenya_Ushakova at 04.08.2020
- */
-
 @Data
 @NoArgsConstructor
 public class UserDto {

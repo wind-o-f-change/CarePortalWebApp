@@ -1,6 +1,5 @@
 package ru.careportal.core.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -15,10 +14,9 @@ import ru.careportal.core.service.UserService;
 import java.security.Principal;
 import java.util.Optional;
 
-@Slf4j
 @Controller
 @RequestMapping("/doctor/**")
-@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_DOCTOR')")
+@PreAuthorize("hasAuthority('ROLE_DOCTOR')")
 public class DoctorController {
     private UserService userService;
     private AnketaService anketaService;
@@ -30,30 +28,25 @@ public class DoctorController {
 
     @GetMapping(value = "/doctor")
     public String doctorPage(Model model, Principal principal){
-        log.debug("Load doctorPage");
         String email = principal.getName();
         Optional<User> userFromDB = userService.findByEmail(email);
-        if (userFromDB.isPresent()) {
-            model.addAttribute("user", userFromDB.get());
+        User user = userFromDB.orElseThrow(()-> new RuntimeException(String.format("Доктор с параметром email='%s' не найден", email)));
+
+            model.addAttribute("user", user);
             model.addAttribute("PageTitle", "Страница врача");
             model.addAttribute("PageBody", "doctor.jsp");
             return "baseTemplate";
-        }
-        log.warn("Пользователь не найден");
-        return "login";
     }
 
     @GetMapping(value = "/doctor/showPatient/{id}")
     public String showPatient(Model model, @PathVariable("id") Long id){
         Optional<User> userFromDB = userService.findById(id);
-        if (userFromDB.isPresent()) {
-            model.addAttribute("user", userFromDB.get());
+        User user = userFromDB.orElseThrow(()-> new RuntimeException(String.format("Пациент с параметром id='%s' не найден", id)));
+
+            model.addAttribute("user", user);
             model.addAttribute("PageTitle", "Информация о пациенте");
             model.addAttribute("PageBody", "patient.jsp");
             return "baseTemplate";
-        }
-        log.warn("Пациент не найден");
-        return "redirect:/doctor";
     }
-    
+
 }

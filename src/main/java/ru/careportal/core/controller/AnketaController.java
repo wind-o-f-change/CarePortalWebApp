@@ -1,6 +1,5 @@
 package ru.careportal.core.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,12 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.careportal.core.dto.PassedAnketaDto;
-import ru.careportal.core.service.*;
+import ru.careportal.core.service.PassedAnketaService;
 
 import java.security.Principal;
 import java.util.List;
 
-@Slf4j
 @Controller
 public class AnketaController {
     private PassedAnketaService passedAnketaService;

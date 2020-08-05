@@ -17,7 +17,7 @@ import java.util.Optional;
 @Slf4j
 @Controller
 @RequestMapping("/patient")
-@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_PATIENT')")
+@PreAuthorize("hasAuthority('ROLE_PATIENT')")
 public class PatientController {
     private UserService userService;
     private AnketaService anketaService;
@@ -30,17 +30,14 @@ public class PatientController {
 
     @GetMapping
     public String patientPage(Model model, Principal principal){
-        log.debug("Load patientPage");
         String email = principal.getName();
         Optional<User> userFromDB = userService.findByEmail(email);
-        if (userFromDB.isPresent()) {
-            model.addAttribute("user", userFromDB.get());
+        User user = userFromDB.orElseThrow(()-> new RuntimeException(String.format("Пациент с параметром email='%s' не найден", email)));
+
+        model.addAttribute("user", user);
             model.addAttribute("PageTitle", "Страница пациента");
             model.addAttribute("PageBody", "patient.jsp");
             model.addAttribute("ankets", anketaService.getAllAnkets());
             return "baseTemplate";
-        }
-        log.warn("Пользователь не найден");
-        return "login";
     }
 }

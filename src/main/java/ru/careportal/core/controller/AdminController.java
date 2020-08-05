@@ -19,11 +19,11 @@ import ru.careportal.core.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
-@RequestMapping("/admin/**")
+@RequestMapping("/admin")
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class AdminController {
     private UserService userService;
@@ -33,7 +33,7 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/admin")
+    @GetMapping
     public String adminPage(Model model, @AuthenticationPrincipal User admin) {
         log.debug("adminPage");
         model.addAttribute("PageTitle", "Администратор");
@@ -52,7 +52,6 @@ public class AdminController {
         model.addAttribute("admin_name", admin.getFullName());
 
         List<User> usersFromDb = new ArrayList<>();
-        List<UserDto> users = new ArrayList<>();
         switch (find_action) {
             case FindAction.PATIENT_DOCTOR:
                 usersFromDb = userService.findByRoleNot(Role.ROLE_ADMIN);
@@ -73,25 +72,20 @@ public class AdminController {
                 usersFromDb = userService.findByEnabled(false);
                 break;
         }
-        for (User user : usersFromDb) {
-            users.add(new UserDto(user));
-        }
-        userChangesDto.setUsers(users);
+
+        List<UserDto> usersDto = usersFromDb.stream().map(user -> new UserDto(user)).collect(Collectors.toList());
+        userChangesDto.setUsers(usersDto);
         model.addAttribute("userChangesDto", userChangesDto);
         return "baseTemplate";
     }
 
-    @RequestMapping(value = "/admin/saveUsersChanges")
-    public String saveChanges(Model model,   @ModelAttribute("userChangesDto") UserChangesDto userChangesDto,
-                              @AuthenticationPrincipal User admin) {
+    @PostMapping("/saveUsersChanges")
+    public String saveChanges(Model model, @ModelAttribute("userChangesDto") UserChangesDto userChangesDto) {
+        userChangesDto.getUsers().forEach(userDto -> userService.updateEnabledStatus(userDto.isEnabled(), userDto.getId()));
 
-        for (UserDto user : userChangesDto.getUsers()) {
-            userService.updateEnabledStatus(user.isEnabled(), user.getId());
-        }
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin-saved.jsp");
 
         return "baseTemplate";
     }
-
 }

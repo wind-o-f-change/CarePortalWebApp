@@ -1,6 +1,7 @@
 package ru.careportal.core.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.careportal.core.db.model.Role;
 import ru.careportal.core.db.model.Sex;
 import ru.careportal.core.db.model.User;
@@ -13,6 +14,7 @@ import java.util.Date;
  */
 
 @Data
+@NoArgsConstructor
 public class UserDto {
     private Long id;
     private boolean enabled;
@@ -21,9 +23,6 @@ public class UserDto {
     private Sex sex;
     private Role role;
     private Date created;
-    public UserDto(){
-
-    }
 
     public UserDto(User user) {
         this.id = user.getId();

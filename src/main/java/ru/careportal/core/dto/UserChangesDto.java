@@ -11,7 +11,6 @@ import java.util.List;
  * created by Ksenya_Ushakova at 04.08.2020
  */
 @Data
-@Slf4j
 public class UserChangesDto {
     private List<UserDto> users = new ArrayList<>();
 

@@ -14,7 +14,6 @@ import ru.careportal.core.db.model.Role;
 import ru.careportal.core.db.model.User;
 import ru.careportal.core.service.UserService;
 
-@Slf4j
 @Controller
 @RequestMapping("/admin")
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -28,7 +27,6 @@ public class AdminController {
 
     @GetMapping
     public String adminPage(Model model, @AuthenticationPrincipal User admin) {
-        log.debug("adminPage");
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin.jsp");
         model.addAttribute("admin_name", admin.getFullName());

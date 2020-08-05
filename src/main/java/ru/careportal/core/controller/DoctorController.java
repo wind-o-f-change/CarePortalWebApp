@@ -1,6 +1,5 @@
 package ru.careportal.core.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,6 @@ import ru.careportal.core.service.UserService;
 import java.security.Principal;
 import java.util.Optional;
 
-//@Slf4j
 @Controller
 @RequestMapping("/doctor/**")
 @PreAuthorize("hasAuthority('ROLE_DOCTOR')")

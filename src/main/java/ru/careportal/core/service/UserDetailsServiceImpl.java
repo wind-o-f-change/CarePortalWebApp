@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.careportal.core.data.UserRepo;
 import ru.careportal.core.db.model.User;
 
 import java.util.Optional;
@@ -22,9 +21,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> user = userService.findByEmail(email);
-        if (user.isPresent()) {
-            return user.get();
-        }
-        throw new UsernameNotFoundException("User '" + email + "' not found");
+        return user.orElseThrow(()-> new UsernameNotFoundException("User '" + email + "' not found"));
     }
 }

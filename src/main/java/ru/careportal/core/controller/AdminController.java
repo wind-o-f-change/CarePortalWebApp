@@ -35,7 +35,6 @@ public class AdminController {
 
     @GetMapping
     public String adminPage(Model model, @AuthenticationPrincipal User admin) {
-        log.debug("adminPage");
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin.jsp");
         model.addAttribute("admin_name", admin.getFullName());

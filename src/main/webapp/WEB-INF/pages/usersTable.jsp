@@ -15,7 +15,6 @@
             <th>Пол</th>
             <th>Роль</th>
             <th>Дата создания</th>
-                <%--<th><h5>Профиль</h5></th>--%>
         </tr>
         <c:forEach var="user" items="${userChangesDto.getUsers()}" varStatus="vsq">
         <tr>
@@ -27,12 +26,10 @@
                 <c:out value="${user.getFullName()}"/></td>
             <td>
                 <c:if test="${user.isEnabled()}">
-<%--                    <form:checkbox text-align="center" path="userDtoList[${vsq.index}].enabled" checked="checked"/>--%>
                     <form:checkbox  path="users[${vsq.index}].enabled" checked="checked"/>
 
                 </c:if>
                 <c:if test="${!user.isEnabled()}">
-<%--                    <form:checkbox path="userDtoList[${vsq.index}].enabled"/>--%>
                     <form:checkbox path="users[${vsq.index}].enabled"/>
                 </c:if>
             </td>
@@ -51,7 +48,6 @@
                 <c:out value="${user.getRole()}"/></td>
             <td>
                 <fmt:formatDate value="${user.getCreated()}" pattern="yyyy-MM-dd HH:mm"/></td>
-                <%-- // добавить ссылку на страницу детализации юзера(не на личную) по типу как у ксении--%>
         </tr>
 
         </c:forEach>

@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.careportal.core.dto.AnketaDto;
 import ru.careportal.core.dto.PassedAnketaDto;
+import ru.careportal.core.dto.QuestionDto;
+import ru.careportal.core.service.AnketaService;
 import ru.careportal.core.service.PassedAnketaService;
+import ru.careportal.core.service.QuestionService;
 
 import java.security.Principal;
 import java.util.List;
@@ -85,6 +88,16 @@ public class AnketaController {
 
     @GetMapping("/new-question")
     public String createNewQuestion(Model model) {
+        model.addAttribute("questionDto", questionService.getNewQuestionDto());
+        model.addAttribute("PageTitle", "Новый вопрос");
+        model.addAttribute("PageBody", "new-question.jsp");
+        return "baseTemplate";
+    }
+
+    @PostMapping("/new-question")
+    public String saveNewQuestion(Model model, Principal principal, @ModelAttribute("questionDto") QuestionDto questionDto) {
+        questionService.saveQuestionByDto(questionDto);
+        model.addAttribute("message", "Новый вопрос успешно сохранен");
         model.addAttribute("questionDto", questionService.getNewQuestionDto());
         model.addAttribute("PageTitle", "Новый вопрос");
         model.addAttribute("PageBody", "new-question.jsp");

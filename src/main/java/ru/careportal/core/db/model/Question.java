@@ -39,4 +39,9 @@ public class Question {
         anketa.getQuestionList().add(this);
     }
 
+    public void addAnswer(Answer answer) {
+        answerList.add(answer);
+        answer.getQuestionList().add(this);
+    }
+
 }

@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.careportal.core.data.AnswerRepo;
 import ru.careportal.core.data.QuestionRepo;
+import ru.careportal.core.db.model.Anketa;
 import ru.careportal.core.db.model.Answer;
 import ru.careportal.core.db.model.Question;
+import ru.careportal.core.dto.AnketaDto;
 import ru.careportal.core.dto.AnswerDto;
 import ru.careportal.core.dto.QuestionDto;
 
@@ -21,6 +23,10 @@ public class QuestionService {
     public QuestionService(QuestionRepo questionRepo, AnswerRepo answerRepo) {
         this.questionRepo = questionRepo;
         this.answerRepo = answerRepo;
+    }
+
+    public Question save(Question question) {
+        return  questionRepo.save(question);
     }
 
     public Question getQuestion(Integer id) {
@@ -50,11 +56,24 @@ public class QuestionService {
         return questionDtoList;
     }
 
+
     public QuestionDto getNewQuestionDto() {
         QuestionDto questionDto = new QuestionDto();
         for(int i = 1; i <= 4; i++) {
             questionDto.getAnswerDtoList().add(new AnswerDto());
         }
         return questionDto;
+    }
+
+    public void saveQuestionByDto(QuestionDto questionDto) {
+        Question question = new Question();
+        question.setText(questionDto.getText());
+        for(AnswerDto answerDto : questionDto.getAnswerDtoList()) {
+            Answer answer = new Answer();
+            answer.setText(answerDto.getText());
+            question.addAnswer(answer);
+        }
+
+        save(question);
     }
 }

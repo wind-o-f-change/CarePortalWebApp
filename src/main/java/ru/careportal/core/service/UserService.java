@@ -42,4 +42,7 @@ public class UserService {
         userRepo.save(user);
     }
 
+    public void updateEnabledStatus(boolean isEnabled, Long id){
+        userRepo.updateUserEnabledStatus(isEnabled, id);
+    }
 }

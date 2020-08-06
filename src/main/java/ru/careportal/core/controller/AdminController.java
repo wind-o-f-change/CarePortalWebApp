@@ -7,12 +7,19 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.careportal.core.db.model.FindAction;
 import ru.careportal.core.db.model.Role;
 import ru.careportal.core.db.model.User;
+import ru.careportal.core.dto.UserChangesDto;
+import ru.careportal.core.dto.UserDto;
 import ru.careportal.core.service.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -28,41 +35,55 @@ public class AdminController {
 
     @GetMapping
     public String adminPage(Model model, @AuthenticationPrincipal User admin) {
-        log.debug("adminPage");
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin.jsp");
         model.addAttribute("admin_name", admin.getFullName());
-
+        model.addAttribute("userChangesDto", new UserChangesDto());
         return "baseTemplate";
     }
 
     @PostMapping
-    public String showUsers(Model model, String find_action, @AuthenticationPrincipal User admin) {
+    public String showUsers(Model model, String find_action, @AuthenticationPrincipal User admin,
+                            @ModelAttribute("userChangesDto") UserChangesDto userChangesDto) {
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin.jsp");
         model.addAttribute("list_body", "usersTable.jsp");
         model.addAttribute("admin_name", admin.getFullName());
 
+        List<User> usersFromDb = new ArrayList<>();
         switch (find_action) {
             case FindAction.PATIENT_DOCTOR:
-                model.addAttribute("list_users", userService.findByRoleNot(Role.ROLE_ADMIN));
+                usersFromDb = userService.findByRoleNot(Role.ROLE_ADMIN);
                 break;
             case FindAction.PATIENT:
-                model.addAttribute("list_users", userService.findByRole(Role.ROLE_PATIENT));
+                usersFromDb =  userService.findByRole(Role.ROLE_PATIENT);
                 break;
             case FindAction.DOCTOR:
-                model.addAttribute("list_users", userService.findByRole(Role.ROLE_DOCTOR));
+                usersFromDb = userService.findByRole(Role.ROLE_DOCTOR);
                 break;
             case FindAction.ADMIN:
-                model.addAttribute("list_users", userService.findByRole(Role.ROLE_ADMIN));
+                usersFromDb = userService.findByRole(Role.ROLE_ADMIN);
                 break;
             case FindAction.ENABLED:
-                model.addAttribute("list_users", userService.findByEnabled(true));
+                usersFromDb = userService.findByEnabled(true);
                 break;
             case FindAction.NOT_ENABLED:
-                model.addAttribute("list_users", userService.findByEnabled(false));
+                usersFromDb = userService.findByEnabled(false);
                 break;
         }
+
+        List<UserDto> usersDto = usersFromDb.stream().map(user -> new UserDto(user)).collect(Collectors.toList());
+        userChangesDto.setUsers(usersDto);
+        model.addAttribute("userChangesDto", userChangesDto);
+        return "baseTemplate";
+    }
+
+    @PostMapping("/saveUsersChanges")
+    public String saveChanges(Model model, @ModelAttribute("userChangesDto") UserChangesDto userChangesDto) {
+        userChangesDto.getUsers().forEach(userDto -> userService.updateEnabledStatus(userDto.isEnabled(), userDto.getId()));
+        model.addAttribute("PageTitle", "Администратор");
+        model.addAttribute("PageBody", "admin.jsp");
+        model.addAttribute("message","Изменения успешно сохранены!");
         return "baseTemplate";
     }
 }

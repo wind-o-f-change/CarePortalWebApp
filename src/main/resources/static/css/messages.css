@@ -1,6 +1,6 @@
 @import url('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 
-.ms_error {
+.ms_error, .ms_info{
     margin: 10px 0px;
     padding:12px 30px 12px 12px;
     color: #D8000C;
@@ -8,8 +8,13 @@
     width: fit-content;
 }
 
-.ms_error i {
+.ms_error i, .ms_info i {
     margin:10px 22px;
     font-size:2em;
     vertical-align:middle;
+}
+
+.ms_info{
+    color: #0e5c04;
+    background-color: #90ec85;
 }

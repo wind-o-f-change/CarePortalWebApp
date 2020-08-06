@@ -2,6 +2,12 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <p><h5>Вы зашли как: ${admin_name}</h5>
 <h3>Кабинет администратора</h3></p>
+<c:if test="${not empty message}">
+    <div class="ms_info">
+        <i class="fa fa-check-circle"></i>
+            ${message}
+    </div>
+</c:if>
 <div>
     <form method="post" action="/admin">
         <h4>Выберите действие: <select name="find_action" required>

@@ -15,6 +15,7 @@
     <script src="${pageContext.request.contextPath}/js/saveCookieFilter.js"></script>
     <script src="${pageContext.request.contextPath}/js/reg.js"></script>
     <script src="${pageContext.request.contextPath}/js/show-hide.js"></script>
+    <script src="${pageContext.request.contextPath}/js/changeUserData.js"></script>
     <title>${PageTitle}</title>
 </head>
 <body>

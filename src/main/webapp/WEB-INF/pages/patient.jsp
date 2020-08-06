@@ -56,11 +56,11 @@
         </tr>
     </table>
     <c:if test="${pageContext.request.isUserInRole('ROLE_PATIENT')}">
-        <button>Редактировать</button>
+        <button id="update-data">Редактировать</button>
     </c:if>
 </section>
 <br>
-<section>
+<section id="update-form">
     <form action="/patient/saveUsersChanges" method="post">
         <table>
             <input type="hidden" name="id" value="${user.id}">
@@ -69,7 +69,7 @@
 
             <tr>
                 <th>ФИО</th>
-                <td><input type="text" name="fullName" required="required" value="${user.fullName}"/></td>
+                <td><input type="text" name="fullName" required="required"  value="${user.fullName}"/></td>
             </tr>
             <tr>
                 <th>E-mail</th>
@@ -110,7 +110,7 @@
                 </c:if>
             </tr>
         </table>
-        <input type="submit" value="Сохранить">
+        <input type="submit" value="Сохранить"> <input type="reset" value="Сбросить"> <input type="reset" id="reset" value="Отменить">
     </form>
 </section>
 <br>

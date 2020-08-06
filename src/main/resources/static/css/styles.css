@@ -279,4 +279,15 @@ h3{
     footer .fixed-container{
         height: 500px;
     }
+
+    #update-form{
+        display: none;
+    }
+    #update-form input[type=text],
+    #update-form input[type=email],
+    #update-form input[type=date]{
+        width: 200px;
+        color: #6a6a6a;
+        margin: 0;
+    }
 }

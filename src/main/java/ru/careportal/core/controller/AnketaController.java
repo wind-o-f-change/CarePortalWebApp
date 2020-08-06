@@ -84,4 +84,12 @@ public class AnketaController {
         model.addAttribute("PageBody", "anketa-constr-success.jsp");
         return "baseTemplate";
     }
+
+    @GetMapping("/new-question")
+    public String createNewQuestion(Model model) {
+        model.addAttribute("questionDto", questionService.getNewQuestionDto());
+        model.addAttribute("PageTitle", "Новый вопрос");
+        model.addAttribute("PageBody", "new-question.jsp");
+        return "baseTemplate";
+    }
 }

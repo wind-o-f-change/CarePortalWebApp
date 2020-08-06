@@ -6,6 +6,7 @@ import ru.careportal.core.data.AnswerRepo;
 import ru.careportal.core.data.QuestionRepo;
 import ru.careportal.core.db.model.Answer;
 import ru.careportal.core.db.model.Question;
+import ru.careportal.core.dto.AnswerDto;
 import ru.careportal.core.dto.QuestionDto;
 
 import java.util.ArrayList;
@@ -47,5 +48,13 @@ public class QuestionService {
         List<QuestionDto> questionDtoList = new ArrayList<>();
         getAllQuestions().forEach(question -> {questionDtoList.add(getQuestionDto(question));});
         return questionDtoList;
+    }
+
+    public QuestionDto getNewQuestionDto() {
+        QuestionDto questionDto = new QuestionDto();
+        for(int i = 1; i <= 4; i++) {
+            questionDto.getAnswerDtoList().add(new AnswerDto());
+        }
+        return questionDto;
     }
 }

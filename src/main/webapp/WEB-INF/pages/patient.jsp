@@ -9,7 +9,12 @@
     <h2>Сведения о пациенте<br>${user.fullName}</h2>
 </c:if>
 <br>
-<p>${message}</p>
+<c:if test="${not empty message}">
+    <div class="ms_error">
+        <i class="fa fa-times-circle"></i>
+            ${message}
+    </div>
+</c:if>
 <input type="image" class="about-me" alt="Личные данные"
        src="${pageContext.request.contextPath}/img/point.png"/>
 <h3 class="about-me">Личные данные</h3>
@@ -60,6 +65,7 @@
     </c:if>
 </section>
 <br>
+
 <section id="update-form">
     <form action="/patient/saveUsersChanges" method="post">
         <table>
@@ -115,6 +121,25 @@
 </section>
 <br>
 <c:if test="${pageContext.request.isUserInRole('ROLE_PATIENT')}">
+<input type="image" class="pass-header" alt="Изменение пароля"
+       src="${pageContext.request.contextPath}/img/point.png"/>
+<h3 class="pass-header">Изменение пароля</h3>
+<section id="pass-section">
+<form class="pass-header" method="post" action="/patient/changePass" >
+    <label>Старый пароль<input id="oldpass" name="oldpassword" type="password" /></label><br>
+        <label>Новый пароль<input id="pass" name="password" type="password" /></label><br>
+        <label>Повторите пароль<input id="passConfirm" type="password" /></label><br>
+
+        <div class="ms_error" id="error-pass">
+            <i class="fa fa-times-circle"></i>
+               Пароли не совпадают!
+        </div>
+
+    <button type="submit" id="savePass">Изменить пароль</button>
+</form>
+</section>
+<br>
+
     <input type="image" class="av-ankets" alt="Доступные анкеты"
            src="${pageContext.request.contextPath}/img/point.png"/>
     <h3 class="av-ankets">Доступные анкеты</h3>
@@ -128,8 +153,10 @@
 <input type="image" class="fill-ankets" alt="Заполненные анкеты"
        src="${pageContext.request.contextPath}/img/point.png"/>
 <h3 class="fill-ankets">Заполненные анкеты</h3>
-<ul id="fill-anket-list">
-    <a href="${pageContext.request.contextPath}/passed-anketa-list">Заполненные анкеты</a>
-</ul>
 
+<ul id="fill-anket-list">
+    <c:forEach var="pa" items="${passedAnkets}">
+        <li><a href="${pageContext.request.contextPath}/passed-anketa/${pa.passId}">${pa.anketaName}</a></li>
+    </c:forEach>
+</ul>
 <br><br><br>

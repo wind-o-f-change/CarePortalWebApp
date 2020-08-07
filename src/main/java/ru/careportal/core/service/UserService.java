@@ -1,6 +1,7 @@
 package ru.careportal.core.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.careportal.core.data.UserRepo;
 import ru.careportal.core.db.model.Role;
@@ -11,6 +12,9 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private UserRepo userRepo;
 
     @Autowired
@@ -44,5 +48,14 @@ public class UserService {
 
     public void updateEnabledStatus(boolean isEnabled, Long id){
         userRepo.updateUserEnabledStatus(isEnabled, id);
+    }
+
+    public void saveWithNewPassword(User user, String password) {
+        user.setPassword(passwordEncoder.encode(password));
+        userRepo.save(user);
+    }
+
+    public boolean validateOldPassword(User user, String oldPassword) {
+        return passwordEncoder.matches(oldPassword, user.getPassword());
     }
 }

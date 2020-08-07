@@ -58,8 +58,28 @@ $(function () {
                 transform: 'rotate(0deg)'
             });
         };
+
     });
 
+    $('h3.pass-header').on('click', function () {
+        if ($('#pass-section').is(':visible')) {
+            $('#pass-section').hide(400);
+        } else {
+            $('#pass-section').show(400);
+        };
+
+        if ( $('input.pass-header').css('transform') == 'matrix(1, 0, 0, 1, 0, 0)'){
+            $('input.pass-header').css({
+                transition: 'all 0.4s',
+                transform: 'rotate(90deg)'
+            });
+        } else  {
+            $('input.pass-header').css({
+                transition: 'all 0.4s',
+                transform: 'rotate(0deg)'
+            });
+        };
+    });
     $('.patient-list').on('click', function () {
         if ($('#p-list').is(':visible')) {
             $('#p-list').hide(400);

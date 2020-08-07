@@ -11,10 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import ru.careportal.core.db.model.PassedAnketa;
 import ru.careportal.core.db.model.Patient;
 import ru.careportal.core.db.model.User;
 import ru.careportal.core.dto.UserDto;
 import ru.careportal.core.service.AnketaService;
+import ru.careportal.core.service.PassedAnketaService;
 import ru.careportal.core.service.UserService;
 
 import java.security.Principal;
@@ -30,33 +33,34 @@ import java.util.Optional;
 public class PatientController {
     private UserService userService;
     private AnketaService anketaService;
-    private AuthenticationManager authenticationManager;
+    private PassedAnketaService passedAnketaService;
 
     @Autowired
-    public PatientController (UserService userService, AnketaService anketaService, AuthenticationManager authenticationManager){
+    public PatientController(UserService userService, AnketaService anketaService, PassedAnketaService passedAnketaService) {
         this.userService = userService;
         this.anketaService = anketaService;
-        this.authenticationManager = authenticationManager;
+        this.passedAnketaService = passedAnketaService;
     }
 
     @GetMapping(value = "/patient")
-    public String patientPage(Model model, Principal principal){
+    public String patientPage(Model model, Principal principal) {
         String email = principal.getName();
         Optional<User> userFromDB = userService.findByEmail(email);
-        User user = userFromDB.orElseThrow(()-> new RuntimeException(String.format("Пациент с параметром email='%s' не найден", email)));
+        User user = userFromDB.orElseThrow(() -> new RuntimeException(String.format("Пациент с параметром email='%s' не найден", email)));
 
         model.addAttribute("user", user);
-            model.addAttribute("PageTitle", "Страница пациента");
-            model.addAttribute("PageBody", "patient.jsp");
-            model.addAttribute("ankets", anketaService.getAllAnkets());
-            return "baseTemplate";
+        model.addAttribute("PageTitle", "Страница пациента");
+        model.addAttribute("PageBody", "patient.jsp");
+        model.addAttribute("ankets", anketaService.getAllAnkets());
+        model.addAttribute("passedAnkets", passedAnketaService.getPassedAnketaDtoListByEmail(email));
+        return "baseTemplate";
     }
 
 
     @PostMapping(value = "/patient/saveUsersChanges")
-    public String saveChanges(Model model, UserDto user){
+    public String saveChanges(Model model, UserDto user) {
         Optional<User> byId = userService.findById(user.getId());
-        Patient userFromDb = (Patient) byId.orElseThrow(()-> new RuntimeException
+        Patient userFromDb = (Patient) byId.orElseThrow(() -> new RuntimeException
                 (String.format("Пациент с параметром id='%s' не найден", user.getId())));
 
         if (!userFromDb.getEmail().equals(user.getEmail())) {
@@ -98,5 +102,23 @@ public class PatientController {
         } catch (ParseException e) {
             throw new RuntimeException("Unable to parse birthDay");
         }
+    }
+
+    @PostMapping(value = "/patient/changePass")
+    public String changeUserPassword(Model model, @RequestParam("password") String password,
+                                     @RequestParam("oldpassword") String oldPassword) {
+        User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+
+        if (!userService.validateOldPassword(user, oldPassword)) {
+            model.addAttribute("message", "Введен недействительный пароль!");
+        } else {
+            userService.saveWithNewPassword(user, password);
+        }
+        model.addAttribute("PageTitle", "Страница пациента");
+        model.addAttribute("PageBody", "patient.jsp");
+        model.addAttribute("ankets", anketaService.getAllAnkets());
+        model.addAttribute("user", user);
+
+        return "baseTemplate";
     }
 }

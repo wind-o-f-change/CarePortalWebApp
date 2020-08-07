@@ -68,4 +68,8 @@ public abstract class User implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
+    public void setUserName(String email) {
+        this.email = email;
+    }
 }

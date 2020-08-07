@@ -107,7 +107,9 @@ textarea{
 .error{
     border: 1px solid ;
 }
-
+#error-pass{
+    display: none;
+}
 .center-td{
     text-align: center;
 }

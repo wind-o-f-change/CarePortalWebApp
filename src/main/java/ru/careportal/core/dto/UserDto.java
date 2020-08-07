@@ -6,6 +6,7 @@ import ru.careportal.core.db.model.Role;
 import ru.careportal.core.db.model.Sex;
 import ru.careportal.core.db.model.User;
 
+import java.util.Calendar;
 import java.util.Date;
 
 @Data
@@ -18,6 +19,7 @@ public class UserDto {
     private Sex sex;
     private Role role;
     private Date created;
+    private String birthDay;
 
     public UserDto(User user) {
         this.id = user.getId();

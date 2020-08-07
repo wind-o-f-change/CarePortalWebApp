@@ -60,9 +60,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new DependsOnRoleUrlAuthenticationSuccessHandler();
     }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
 }

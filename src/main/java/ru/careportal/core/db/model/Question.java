@@ -34,11 +34,6 @@ public class Question {
     @OneToMany(mappedBy="question", cascade = CascadeType.ALL)
     private List<PassedQuestion> passedQuestionList = new ArrayList<>();
 
-    public void addAnketa(Anketa anketa) {
-        anketaList.add(anketa);
-        anketa.getQuestionList().add(this);
-    }
-
     public void addAnswer(Answer answer) {
         answerList.add(answer);
         answer.getQuestionList().add(this);

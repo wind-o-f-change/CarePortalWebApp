@@ -4,20 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.careportal.core.data.AnswerRepo;
 import ru.careportal.core.data.QuestionRepo;
-import ru.careportal.core.db.model.Anketa;
 import ru.careportal.core.db.model.Answer;
 import ru.careportal.core.db.model.Question;
-import ru.careportal.core.dto.AnketaDto;
 import ru.careportal.core.dto.AnswerDto;
 import ru.careportal.core.dto.QuestionDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
     private QuestionRepo questionRepo;
     private AnswerRepo answerRepo;
+    private static final int answersMaxCount = 4;
 
     @Autowired
     public QuestionService(QuestionRepo questionRepo, AnswerRepo answerRepo) {
@@ -37,7 +37,7 @@ public class QuestionService {
         return answerRepo.findById(id).orElseThrow(NoEntityException::new);
     }
 
-    private QuestionDto getQuestionDto(Question question) {
+    private QuestionDto createQuestionDto(Question question) {
         QuestionDto questionDto = new QuestionDto();
         questionDto.setId(question.getId());
         questionDto.setText(question.getText());
@@ -51,17 +51,17 @@ public class QuestionService {
     }
 
     public List<QuestionDto> getAllQuestionsDto() {
-        List<QuestionDto> questionDtoList = new ArrayList<>();
-        getAllQuestions().forEach(question -> {questionDtoList.add(getQuestionDto(question));});
-        return questionDtoList;
+        return getAllQuestions().stream().map(this::createQuestionDto).collect(Collectors.toList());
     }
 
 
-    public QuestionDto getNewQuestionDto() {
+    public QuestionDto createNewQuestionDto() {
         QuestionDto questionDto = new QuestionDto();
-        for(int i = 1; i <= 4; i++) {
-            questionDto.getAnswerDtoList().add(new AnswerDto());
+        List<AnswerDto> answerDtoList = new ArrayList<>();
+        for(int i = 1; i <= answersMaxCount; i++) {
+            answerDtoList.add(new AnswerDto());
         }
+        questionDto.getAnswerDtoList().addAll(answerDtoList);
         return questionDto;
     }
 
@@ -69,9 +69,12 @@ public class QuestionService {
         Question question = new Question();
         question.setText(questionDto.getText());
         for(AnswerDto answerDto : questionDto.getAnswerDtoList()) {
-            Answer answer = new Answer();
-            answer.setText(answerDto.getText());
-            question.addAnswer(answer);
+            String answerText = answerDto.getText();
+            if (!answerText.equals("")) {
+                Answer answer = new Answer();
+                answer.setText(answerDto.getText());
+                question.addAnswer(answer);
+            }
         }
 
         save(question);

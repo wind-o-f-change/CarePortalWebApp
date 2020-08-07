@@ -88,7 +88,7 @@ public class AnketaController {
 
     @GetMapping("/new-question")
     public String createNewQuestion(Model model) {
-        model.addAttribute("questionDto", questionService.getNewQuestionDto());
+        model.addAttribute("questionDto", questionService.createNewQuestionDto());
         model.addAttribute("PageTitle", "Новый вопрос");
         model.addAttribute("PageBody", "new-question.jsp");
         return "baseTemplate";
@@ -98,7 +98,7 @@ public class AnketaController {
     public String saveNewQuestion(Model model, Principal principal, @ModelAttribute("questionDto") QuestionDto questionDto) {
         questionService.saveQuestionByDto(questionDto);
         model.addAttribute("message", "Новый вопрос успешно сохранен");
-        model.addAttribute("questionDto", questionService.getNewQuestionDto());
+        model.addAttribute("questionDto", questionService.createNewQuestionDto());
         model.addAttribute("PageTitle", "Новый вопрос");
         model.addAttribute("PageBody", "new-question.jsp");
         return "baseTemplate";

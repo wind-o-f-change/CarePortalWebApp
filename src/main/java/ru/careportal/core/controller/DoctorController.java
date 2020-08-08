@@ -62,7 +62,7 @@ public class DoctorController {
             Optional<User> byEmail = userService.findByEmail(user.getEmail());
             if (byEmail.isPresent()) {
                 model.addAttribute("message", "Пользователь с таким email уже зарегистрирован");
-                model.addAttribute("PageTitle", "Страница пациента");
+                model.addAttribute("PageTitle", "Страница врача");
                 model.addAttribute("PageBody", "doctor.jsp");
                 model.addAttribute("user", userFromDb);
                 return "baseTemplate";

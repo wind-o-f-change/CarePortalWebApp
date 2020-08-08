@@ -88,6 +88,7 @@ public class PatientController {
         model.addAttribute("PageTitle", "Страница пациента");
         model.addAttribute("PageBody", "patient.jsp");
         model.addAttribute("ankets", anketaService.getAllAnkets());
+        model.addAttribute("passedAnkets", passedAnketaService.getPassedAnketaDtoListByEmail(userFromDb.getEmail()));
         model.addAttribute("user", userFromDb);
 
         return "baseTemplate";
@@ -117,6 +118,7 @@ public class PatientController {
         model.addAttribute("PageTitle", "Страница пациента");
         model.addAttribute("PageBody", "patient.jsp");
         model.addAttribute("ankets", anketaService.getAllAnkets());
+        model.addAttribute("passedAnkets", passedAnketaService.getPassedAnketaDtoListByEmail(user.getEmail()));
         model.addAttribute("user", user);
 
         return "baseTemplate";

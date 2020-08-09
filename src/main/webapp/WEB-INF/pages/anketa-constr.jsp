@@ -10,7 +10,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <form action="/anketa-constr" method="post" modelAttribute="anketaDto">
-    <div><label> Название анкеты : <input type="text" name="name"/> </label></div>
+    <span>${message}</span><br>
+
+    <div><label> Название анкеты : <input type="text" name="name" value="${anketaDto.name}"></label></div>
 
     <c:forEach var="questionDto" items="${questionDtoList}" varStatus="vs">
         <form:checkbox path="anketaDto.questionIdList" value="${questionDto.id}" label="${questionDto.text}" cssClass="styled"/>

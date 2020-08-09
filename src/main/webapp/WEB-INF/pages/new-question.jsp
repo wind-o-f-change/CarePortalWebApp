@@ -15,7 +15,7 @@
     <h1>Создать новый вопрос</h1>
 
     <label for="questionText">Текст вопроса:</label>
-    <textarea id="questionText" name="text" rows="4" cols="50"></textarea>
+    <textarea id="questionText" name="text" rows="4" cols="50">${questionDto.text}</textarea>
     <br><br>
 
     <c:forEach var="answerDto" items="${questionDto.answerDtoList}" varStatus="vs">

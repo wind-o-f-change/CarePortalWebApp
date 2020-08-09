@@ -72,6 +72,7 @@ public class AnketaController {
     }
 
     @GetMapping("/anketa-constr")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String anketaConstr(Model model) {
         model.addAttribute("questionDtoList", questionService.getAllQuestionsDto());
         model.addAttribute("anketaDto", new AnketaDto());
@@ -81,14 +82,24 @@ public class AnketaController {
     }
 
     @PostMapping("/anketa-constr")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String anketaConstrSave(Model model, Principal principal, @ModelAttribute("anketaDto") AnketaDto anketaDto) {
-        anketaService.saveAnketaByDto(anketaDto);
+        if (anketaDto.getQuestionIdList().size() == 0) {
+            model.addAttribute("message", "Не выбран ни 1 вопрос");
+            model.addAttribute("questionDtoList", questionService.getAllQuestionsDto());
+            model.addAttribute("anketaDto", anketaDto);
+            model.addAttribute("PageBody", "anketa-constr.jsp");
+        } else {
+            anketaService.saveAnketaByDto(anketaDto);
+            model.addAttribute("PageBody", "anketa-constr-success.jsp");
+        }
+
         model.addAttribute("PageTitle", "Конструктор анкеты");
-        model.addAttribute("PageBody", "anketa-constr-success.jsp");
         return "baseTemplate";
     }
 
     @GetMapping("/new-question")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String createNewQuestion(Model model) {
         model.addAttribute("questionDto", questionService.createNewQuestionDto());
         model.addAttribute("PageTitle", "Новый вопрос");
@@ -97,10 +108,17 @@ public class AnketaController {
     }
 
     @PostMapping("/new-question")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String saveNewQuestion(Model model, Principal principal, @ModelAttribute("questionDto") QuestionDto questionDto) {
-        questionService.saveQuestionByDto(questionDto);
-        model.addAttribute("message", "Новый вопрос успешно сохранен");
-        model.addAttribute("questionDto", questionService.createNewQuestionDto());
+        if(questionDto.getAnswerDtoList().get(0).getText().equals("")) {
+            model.addAttribute("message", "Не указан вариант ответа");
+            model.addAttribute("questionDto", questionDto);
+        } else {
+            questionService.saveQuestionByDto(questionDto);
+            model.addAttribute("message", "Новый вопрос успешно сохранен");
+            model.addAttribute("questionDto", questionService.createNewQuestionDto());
+        }
+
         model.addAttribute("PageTitle", "Новый вопрос");
         model.addAttribute("PageBody", "new-question.jsp");
         return "baseTemplate";

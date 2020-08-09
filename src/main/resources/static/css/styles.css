@@ -20,7 +20,33 @@ hr{
     width: 100%;
     opacity: 15%;
 }
-
+form hr{
+    opacity: 40%;
+}
+.reg{
+    width: 450px;
+    padding-top: 50px;
+}
+.radio-reg{
+    width: 272px;
+}
+.date-reg{
+    width: 300px;
+}
+.reg input {
+    margin-top: 0;
+}
+.radio-reg input{
+    margin-top: 5px;
+}
+.reg label {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+.date-reg input{
+    margin-left: 123px;
+}
 #logo{
     float: left;
     margin-bottom: 30px;
@@ -290,4 +316,5 @@ h3{
         color: #6a6a6a;
         margin: 0;
     }
+
 }

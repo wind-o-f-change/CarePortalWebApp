@@ -36,4 +36,9 @@ public class Anketa {
                 '}';
     }
 
+    public void addQuestion(Question question) {
+        questionList.add(question);
+        question.getAnketaList().add(this);
+    }
+
 }

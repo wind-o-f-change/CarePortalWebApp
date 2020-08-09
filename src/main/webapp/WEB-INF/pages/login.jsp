@@ -33,8 +33,10 @@
 <h3>Введите данные учетной записи</h3>
 <div>
     <form action="/login" method="post">
+        <div class="reg">
         <div><label> Ваш email : <input type="email" name="email"/> </label></div>
         <div><label> Пароль : <input type="password" name="password"/> </label></div>
+        </div>
         <div><input type="submit" value="Войти"/></div>
         <c:if test="${not empty error}">
             <div class="ms_error">

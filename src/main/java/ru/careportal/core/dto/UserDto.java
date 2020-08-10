@@ -20,6 +20,7 @@ public class UserDto {
     private Role role;
     private Date created;
     private String birthDay;
+    private boolean assignedToDoctor;
 
     public UserDto(User user) {
         this.id = user.getId();

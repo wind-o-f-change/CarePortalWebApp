@@ -27,4 +27,18 @@
         </c:forEach>
     </ol>
 </c:if>
+<c:if test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+    <h3>Назначение новых пациентов</h3>
+    <form method="post" action="${pageContext.request.contextPath}/admin/showUser/${user.getId()}" class="hidden-select">
+        <h4>Показать всех пациентов </h4>
+        </select> <input type="submit" value="Смотреть"/></h4>
+    </form>
+    <div>
+        <c:set var="pageBody" value="${list_body}"/>
+        <c:if test="${pageBody != null}">
+            <c:import url="${list_body}"/>
+        </c:if>
+
+    </div>
+</c:if>
 <br><br><br>

@@ -188,7 +188,7 @@ main{
     background-color: #dbe1ee;
     min-height: 635px;
 }
-#date, #data, #anket-list, #fill-anket-list, #p-list, #pass-section{
+#date, #data, #anket-list, #fill-anket-list, #p-list, #pass-section, .hidden-select select{
     display: none;
 }
 .about-me, .av-ankets, .fill-ankets, .patient-list, .pass-header{

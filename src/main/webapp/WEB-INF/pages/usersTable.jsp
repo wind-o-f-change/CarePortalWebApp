@@ -15,6 +15,7 @@
             <th>Пол</th>
             <th>Роль</th>
             <th>Дата создания</th>
+            <th>Ссылка на профиль</th>
         </tr>
         <c:forEach var="user" items="${userChangesDto.getUsers()}" varStatus="vsq">
         <tr>
@@ -48,7 +49,11 @@
                 <c:out value="${user.getRole()}"/></td>
             <td>
                 <fmt:formatDate value="${user.getCreated()}" pattern="yyyy-MM-dd HH:mm"/></td>
+            <td>
+                <a href="${pageContext.request.contextPath}/admin/showUser/${user.getId()}">Профиль</a>
+            </td>
         </tr>
+
 
         </c:forEach>
 

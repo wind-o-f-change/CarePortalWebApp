@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.careportal.core.data.UserRepo;
+import ru.careportal.core.db.model.Doctor;
 import ru.careportal.core.db.model.Role;
 import ru.careportal.core.db.model.User;
 
@@ -58,4 +59,6 @@ public class UserService {
     public boolean validateOldPassword(User user, String oldPassword) {
         return passwordEncoder.matches(oldPassword, user.getPassword());
     }
+
+
 }

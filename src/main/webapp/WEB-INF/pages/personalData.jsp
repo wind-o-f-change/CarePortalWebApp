@@ -6,6 +6,8 @@
        src="${pageContext.request.contextPath}/img/point.png"/>
 <h3 class="about-me">Личные данные</h3>
 <section id="data">
+    <c:set value="Страница врача" var="doc"/>
+    <c:set value="Страница пациента" var="patient"/>
     <table>
         <tr>
             <th>ФИО</th>
@@ -27,7 +29,7 @@
                 <td>Женский</td>
             </c:if>
         </tr>
-        <c:if test="${pageContext.request.isUserInRole('ROLE_PATIENT')}">
+        <c:if test="${PageTitle == patient}">
             <tr>
                 <th>Дата рождения</th>
                 <td><fmt:formatDate value="${user.birthDay.getTime()}" pattern="yyyy-MM-dd" var="bday"/>${bday}</td>
@@ -37,7 +39,7 @@
             <th>Дата регистрации</th>
             <td><fmt:formatDate value="${user.created}" pattern="yyyy-MM-dd"/></td>
         </tr>
-        <c:if test="${pageContext.request.isUserInRole('ROLE_PATIENT')}">
+        <c:if test="${PageTitle == patient}">
         <tr>
             <th>Назначенный врач</th>
 
@@ -51,7 +53,7 @@
         </tr>
         </c:if>
     </table>
-    <c:set value="Страница врача" var="doc"/>
+
 
     <c:if test="${pageContext.request.isUserInRole('ROLE_DOCTOR')}">
         <c:if test="${PageTitle == doc}">

@@ -3,7 +3,6 @@ package ru.careportal.core.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.careportal.core.db.model.PassedAnketa;
 import ru.careportal.core.db.model.Patient;
 import ru.careportal.core.db.model.User;
+import ru.careportal.core.dto.PassedAnketaDto;
 import ru.careportal.core.dto.UserDto;
 import ru.careportal.core.service.AnketaService;
 import ru.careportal.core.service.PassedAnketaService;
@@ -24,6 +23,7 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -52,7 +52,11 @@ public class PatientController {
         model.addAttribute("PageTitle", "Страница пациента");
         model.addAttribute("PageBody", "patient.jsp");
         model.addAttribute("ankets", anketaService.getAllAnkets());
-        model.addAttribute("passedAnkets", passedAnketaService.getPassedAnketaDtoListByEmail(email));
+//        model.addAttribute("passedAnkets", passedAnketaService.getPassedAnketaDtoListByEmail(email));
+        List<PassedAnketaDto> passedAnketaDtoList = passedAnketaService.getPassedAnketaDtoListByEmail(email);
+        model.addAttribute("passedAnketaDtoList", passedAnketaDtoList);
+        model.addAttribute("passedAnketaTable", "passed-anketa-list.jsp");
+
         return "baseTemplate";
     }
 
@@ -88,7 +92,9 @@ public class PatientController {
         model.addAttribute("PageTitle", "Страница пациента");
         model.addAttribute("PageBody", "patient.jsp");
         model.addAttribute("ankets", anketaService.getAllAnkets());
-        model.addAttribute("passedAnkets", passedAnketaService.getPassedAnketaDtoListByEmail(userFromDb.getEmail()));
+        List<PassedAnketaDto> passedAnketaDtoList = passedAnketaService.getPassedAnketaDtoListByEmail(userFromDb.getEmail());
+        model.addAttribute("passedAnketaDtoList", passedAnketaDtoList);
+        model.addAttribute("passedAnketaTable", "passed-anketa-list.jsp");
         model.addAttribute("user", userFromDb);
 
         return "baseTemplate";
@@ -108,7 +114,10 @@ public class PatientController {
     @PostMapping(value = "/patient/changePass")
     public String changeUserPassword(Model model, @RequestParam("password") String password,
                                      @RequestParam("oldpassword") String oldPassword) {
-        User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException
+                (String.format("Пациент с параметром email='%s' не найден", email)));
 
         if (!userService.validateOldPassword(user, oldPassword)) {
             model.addAttribute("message", "Введен недействительный пароль!");
@@ -118,7 +127,9 @@ public class PatientController {
         model.addAttribute("PageTitle", "Страница пациента");
         model.addAttribute("PageBody", "patient.jsp");
         model.addAttribute("ankets", anketaService.getAllAnkets());
-        model.addAttribute("passedAnkets", passedAnketaService.getPassedAnketaDtoListByEmail(user.getEmail()));
+        List<PassedAnketaDto> passedAnketaDtoList = passedAnketaService.getPassedAnketaDtoListByEmail(email);
+        model.addAttribute("passedAnketaDtoList", passedAnketaDtoList);
+        model.addAttribute("passedAnketaTable", "passed-anketa-list.jsp");
         model.addAttribute("user", user);
 
         return "baseTemplate";

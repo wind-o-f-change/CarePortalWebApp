@@ -10,11 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.careportal.core.db.model.Doctor;
 import ru.careportal.core.db.model.User;
+import ru.careportal.core.dto.PassedAnketaDto;
 import ru.careportal.core.dto.UserDto;
-import ru.careportal.core.service.AnketaService;
+import ru.careportal.core.service.PassedAnketaService;
 import ru.careportal.core.service.UserService;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -22,18 +24,20 @@ import java.util.Optional;
 @PreAuthorize("hasAuthority('ROLE_DOCTOR')")
 public class DoctorController {
     private UserService userService;
-    private AnketaService anketaService;
+    private PassedAnketaService passedAnketaService;
 
     @Autowired
-    public DoctorController (UserService userService){
+    public DoctorController (UserService userService, PassedAnketaService passedAnketaService){
         this.userService = userService;
+        this.passedAnketaService = passedAnketaService;
     }
 
     @GetMapping(value = "/doctor")
     public String doctorPage(Model model, Principal principal){
         String email = principal.getName();
         Optional<User> userFromDB = userService.findByEmail(email);
-        User user = userFromDB.orElseThrow(()-> new RuntimeException(String.format("Доктор с параметром email='%s' не найден", email)));
+        User user = userFromDB.orElseThrow(()->
+                new RuntimeException(String.format("Доктор с параметром email='%s' не найден", email)));
 
             model.addAttribute("user", user);
             model.addAttribute("PageTitle", "Страница врача");
@@ -49,6 +53,9 @@ public class DoctorController {
             model.addAttribute("user", user);
             model.addAttribute("PageTitle", "Информация о пациенте");
             model.addAttribute("PageBody", "patient.jsp");
+        List<PassedAnketaDto> passedAnketaDtoList = passedAnketaService.getPassedAnketaDtoListByEmail(user.getEmail());
+        model.addAttribute("passedAnketaDtoList", passedAnketaDtoList);
+        model.addAttribute("passedAnketaTable", "passed-anketa-list.jsp");
             return "baseTemplate";
     }
 

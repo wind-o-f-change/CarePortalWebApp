@@ -37,9 +37,7 @@
        src="${pageContext.request.contextPath}/img/point.png"/>
 <h3 class="fill-ankets">Заполненные анкеты</h3>
 
-<ul id="fill-anket-list">
-    <c:forEach var="pa" items="${passedAnkets}">
-        <li><a href="${pageContext.request.contextPath}/passed-anketa/${pa.passId}">${pa.anketaName}</a></li>
-    </c:forEach>
-</ul>
+<div id="fill-anket-list">
+    <c:import url="${passedAnketaTable}"/>
+</div>
 <br><br><br>

@@ -8,8 +8,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<h3>${passedAnketaDto.anketaName}</h3>
 <table>
+    <th>№</th>
+    <th>Содержание вопроса</th>
+    <th>Указанный ответ</th>
     <c:forEach var="questionDto" items="${passedAnketaDto.questionDtoList}" varStatus="vs">
         <tr>
             <td>${vs.index+1}</td>
@@ -18,3 +21,4 @@
         </tr>
     </c:forEach>
 </table>
+<br><br>

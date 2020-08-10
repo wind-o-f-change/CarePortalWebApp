@@ -10,10 +10,11 @@
     <c:if test="${pageContext.request.isUserInRole('ROLE_PATIENT')}">
     <form class="pass-header" method="post" action="/patient/changePass" >
         </c:if>
+        <div class="reg">
         <label>Старый пароль<input id="oldpass" name="oldpassword" type="password" /></label><br>
         <label>Новый пароль<input id="pass" name="password" type="password" /></label><br>
         <label>Повторите пароль<input id="passConfirm" type="password" /></label><br>
-
+        </div>
         <div class="ms_error" id="error-pass">
             <i class="fa fa-times-circle"></i>
             Пароли не совпадают!

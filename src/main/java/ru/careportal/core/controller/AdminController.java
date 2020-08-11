@@ -134,8 +134,6 @@ public class AdminController {
                 Patient byId = patientService.findById(userDto.getId())
                         .orElseThrow(() -> new RuntimeException
                                 (String.format("Пользователь с параметром id= %s не найден", userDto.getId())));
-
-
                 byId.setDoctor(doctor);
                 patientService.save(byId);
                 doctor.getPatients().add(byId);

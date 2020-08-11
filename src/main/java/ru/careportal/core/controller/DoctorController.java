@@ -86,12 +86,10 @@ public class DoctorController {
         User userDetails = (User) authentication.getPrincipal();
         userDetails.setUserName(userFromDb.getUsername());
 
-
         model.addAttribute("PageTitle", "Страница врача");
         model.addAttribute("PageBody", "doctor.jsp");
         model.addAttribute("user", userFromDb);
         model.addAttribute("message", "Изменения успешно сохранены!");
-
         return "baseTemplate";
     }
 

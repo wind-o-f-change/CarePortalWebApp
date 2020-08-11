@@ -44,14 +44,14 @@ public class DoctorController {
             model.addAttribute("PageBody", "doctor.jsp");
             return "baseTemplate";
     }
-
+    @PreAuthorize("hasAnyAuthority('ROLE_DOCTOR','ROLE_ADMIN')")
     @GetMapping(value = "/doctor/showPatient/{id}")
     public String showPatient(Model model, @PathVariable("id") Long id){
         Optional<User> userFromDB = userService.findById(id);
         User user = userFromDB.orElseThrow(()-> new RuntimeException(String.format("Пациент с параметром id='%s' не найден", id)));
 
             model.addAttribute("user", user);
-            model.addAttribute("PageTitle", "Информация о пациенте");
+            model.addAttribute("PageTitle", "Страница пациента");
             model.addAttribute("PageBody", "patient.jsp");
         List<PassedAnketaDto> passedAnketaDtoList = passedAnketaService.getPassedAnketaDtoListByEmail(user.getEmail());
         model.addAttribute("passedAnketaDtoList", passedAnketaDtoList);
@@ -68,7 +68,7 @@ public class DoctorController {
         if (!userFromDb.getEmail().equals(user.getEmail())) {
             Optional<User> byEmail = userService.findByEmail(user.getEmail());
             if (byEmail.isPresent()) {
-                model.addAttribute("message", "Пользователь с таким email уже зарегистрирован");
+                model.addAttribute("error", "Пользователь с таким email уже зарегистрирован");
                 model.addAttribute("PageTitle", "Страница врача");
                 model.addAttribute("PageBody", "doctor.jsp");
                 model.addAttribute("user", userFromDb);
@@ -90,6 +90,7 @@ public class DoctorController {
         model.addAttribute("PageTitle", "Страница врача");
         model.addAttribute("PageBody", "doctor.jsp");
         model.addAttribute("user", userFromDb);
+        model.addAttribute("message", "Изменения успешно сохранены!");
 
         return "baseTemplate";
     }
@@ -97,12 +98,15 @@ public class DoctorController {
     @PostMapping(value = "/doctor/changePass")
     public String changeUserPassword(Model model, @RequestParam("password") String password,
                                      @RequestParam("oldpassword") String oldPassword) {
-        User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException(String.format("Пациент с параметром email='%s' не найден", email)));
 
         if (!userService.validateOldPassword(user, oldPassword)) {
-            model.addAttribute("message", "Введен недействительный пароль!");
+            model.addAttribute("error", "Введен недействительный пароль!");
         } else {
             userService.saveWithNewPassword(user, password);
+            model.addAttribute("message", "Пароль успешно изменен!");
         }
         model.addAttribute("PageTitle", "Страница врача");
         model.addAttribute("PageBody", "doctor.jsp");

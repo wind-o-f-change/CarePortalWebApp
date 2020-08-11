@@ -46,7 +46,10 @@ button, input[type="submit"] {
 button:hover, input[type="submit"]:hover {
     background-color: #2caf94;
 }
-
+button a{
+    text-decoration: none;
+    color: #ffffff;
+}
 ul {
     color: #6a6a6a;
 }

@@ -41,7 +41,7 @@ public class AdminController {
     public String adminPage(Model model, @AuthenticationPrincipal User admin) {
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin.jsp");
-        model.addAttribute("admin_name", admin.getFullName());
+        model.addAttribute("admin", admin);
         model.addAttribute("userChangesDto", new UserChangesDto());
         return "baseTemplate";
     }
@@ -60,7 +60,7 @@ public class AdminController {
                 usersFromDb = userService.findByRoleNot(Role.ROLE_ADMIN);
                 break;
             case FindAction.PATIENT:
-                usersFromDb =  userService.findByRole(Role.ROLE_PATIENT);
+                usersFromDb = userService.findByRole(Role.ROLE_PATIENT);
                 break;
             case FindAction.DOCTOR:
                 usersFromDb = userService.findByRole(Role.ROLE_DOCTOR);
@@ -87,41 +87,25 @@ public class AdminController {
         userChangesDto.getUsers().forEach(userDto -> userService.updateEnabledStatus(userDto.isEnabled(), userDto.getId()));
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin.jsp");
-        model.addAttribute("message","Изменения успешно сохранены!");
+        model.addAttribute("message", "Изменения успешно сохранены!");
         return "baseTemplate";
     }
 
     @GetMapping(value = "/admin/showUser/{id}")
-    public String showUser(Model model, @PathVariable("id") Long id){
+    public String showUser(Model model, @PathVariable("id") Long id,
+                           @ModelAttribute("userChangesDto") UserChangesDto userChangesDto) {
         Optional<User> userFromDB = userService.findById(id);
-        User user = userFromDB.orElseThrow(()-> new RuntimeException(String.format("Пациент с параметром id='%s' не найден", id)));
+        User user = userFromDB.orElseThrow(() -> new RuntimeException(String.format("Пациент с параметром id='%s' не найден", id)));
         Role role = user.getRole();
-        switch (role){
+        switch (role) {
             case ROLE_PATIENT:
                 showPatient(model, user);
                 break;
             case ROLE_DOCTOR:
-                showDoctor(model, user);
+                showDoctor(model, user, id, userChangesDto);
                 break;
         }
 
-        return "baseTemplate";
-    }
-
-    @PostMapping(value = "/admin/showUser/{id}")
-    public String showFreePatients(Model model, @AuthenticationPrincipal User admin,
-                                   @ModelAttribute("userChangesDto") UserChangesDto userChangesDto,
-                                   @PathVariable Long id){
-        model.addAttribute("PageTitle", "Информация о враче");
-        model.addAttribute("PageBody", "doctor.jsp");
-        model.addAttribute("list_body", "usersWithoutDocTable.jsp");
-
-        List<Patient> usersFromDb =  patientService.findByRoleAndDoctorIsNull(Role.ROLE_PATIENT);
-
-        List<UserDto> usersDto = usersFromDb.stream().map(user -> new UserDto(user)).collect(Collectors.toList());
-        userChangesDto.setUsers(usersDto);
-        model.addAttribute("id", id);
-        model.addAttribute("userChangesDto", userChangesDto);
         return "baseTemplate";
     }
 
@@ -140,20 +124,26 @@ public class AdminController {
             }
         });
         userService.save(doctor);
-        showDoctor(model, doctor);
+        showDoctor(model, doctor, id, userChangesDto);
         model.addAttribute("message", "Изменения успешно сохранены!");
         return "baseTemplate";
     }
 
-    private void showDoctor(Model model, User user) {
+    private void showDoctor(Model model, User user, Long id, UserChangesDto userChangesDto) {
         model.addAttribute("user", user);
-        model.addAttribute("PageTitle", "Информация о враче");
+        model.addAttribute("PageTitle", "Страница врача");
         model.addAttribute("PageBody", "doctor.jsp");
+        model.addAttribute("list_body", "usersWithoutDocTable.jsp");
+        List<Patient> usersFromDb = patientService.findByRoleAndDoctorIsNull(Role.ROLE_PATIENT);
+        List<UserDto> usersDto = usersFromDb.stream().map(userFromBb -> new UserDto(userFromBb)).collect(Collectors.toList());
+        userChangesDto.setUsers(usersDto);
+        model.addAttribute("id", id);
+        model.addAttribute("userChangesDto", userChangesDto);
     }
 
     private void showPatient(Model model, User user) {
         model.addAttribute("user", user);
-        model.addAttribute("PageTitle", "Информация о пациенте");
+        model.addAttribute("PageTitle", "Страница пациента");
         model.addAttribute("PageBody", "patient.jsp");
         List<PassedAnketaDto> passedAnketaDtoList = passedAnketaService.getPassedAnketaDtoListByEmail(user.getEmail());
         model.addAttribute("passedAnketaDtoList", passedAnketaDtoList);

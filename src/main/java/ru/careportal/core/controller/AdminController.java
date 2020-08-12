@@ -30,8 +30,8 @@ public class AdminController {
     private PatientService patientService;
 
     @Autowired
-    public void setUserService(UserService userService, PassedAnketaService passedAnketaService,
-                               PatientService patientService) {
+    public AdminController(UserService userService, PassedAnketaService passedAnketaService,
+                           PatientService patientService) {
         this.userService = userService;
         this.passedAnketaService = passedAnketaService;
         this.patientService = patientService;

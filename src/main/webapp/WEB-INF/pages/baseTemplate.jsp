@@ -17,6 +17,7 @@
     <script src="${pageContext.request.contextPath}/js/show-hide.js"></script>
     <script src="${pageContext.request.contextPath}/js/changeUserData.js"></script>
     <script src="${pageContext.request.contextPath}/js/changePass.js"></script>
+    <script src="${pageContext.request.contextPath}/js/deletePatient.js"></script>
     <title>${PageTitle}</title>
 </head>
 <body>

@@ -75,7 +75,6 @@ public class AdminController {
                 usersFromDb = userService.findByEnabled(false);
                 break;
         }
-
         List<UserDto> usersDto = usersFromDb.stream().map(user -> new UserDto(user)).collect(Collectors.toList());
         userChangesDto.setUsers(usersDto);
         model.addAttribute("userChangesDto", userChangesDto);
@@ -105,7 +104,6 @@ public class AdminController {
                 showDoctor(model, user, id, userChangesDto);
                 break;
         }
-
         return "baseTemplate";
     }
 
@@ -131,14 +129,21 @@ public class AdminController {
 
     private void showDoctor(Model model, User user, Long id, UserChangesDto userChangesDto) {
         model.addAttribute("user", user);
+        Doctor doctor = (Doctor) user;
         model.addAttribute("PageTitle", "Страница врача");
         model.addAttribute("PageBody", "doctor.jsp");
         model.addAttribute("list_body", "usersWithoutDocTable.jsp");
-        List<Patient> usersFromDb = patientService.findByRoleAndDoctorIsNull(Role.ROLE_PATIENT);
-        List<UserDto> usersDto = usersFromDb.stream().map(userFromBb -> new UserDto(userFromBb)).collect(Collectors.toList());
+        List<Patient> usersWithoutDoc = patientService.findByRoleAndDoctorIsNull(Role.ROLE_PATIENT);
+        List<UserDto> usersDto = usersWithoutDoc.stream().map(userWithoutDoc -> new UserDto(userWithoutDoc)).collect(Collectors.toList());
         userChangesDto.setUsers(usersDto);
         model.addAttribute("id", id);
         model.addAttribute("userChangesDto", userChangesDto);
+        List<UserDto> patients = doctor.getPatients().stream().map(patient -> new UserDto(patient))
+                .collect(Collectors.toList());
+        UserChangesDto patientsDto = new UserChangesDto();
+        patientsDto.setUsers(patients);
+        model.addAttribute("patientsDto", patientsDto);
+
     }
 
     private void showPatient(Model model, User user) {
@@ -148,5 +153,26 @@ public class AdminController {
         List<PassedAnketaDto> passedAnketaDtoList = passedAnketaService.getPassedAnketaDtoListByEmail(user.getEmail());
         model.addAttribute("passedAnketaDtoList", passedAnketaDtoList);
         model.addAttribute("passedAnketaTable", "passed-anketa-list.jsp");
+    }
+
+    @PostMapping(value = "/admin/deleteFromDoc/{id}")
+    public String deletePatients(Model model, @ModelAttribute("userChangesDto") UserChangesDto userChangesDto,
+                                 @ModelAttribute("patientsDto") UserChangesDto patientsDto, @PathVariable Long id) {
+        Doctor doctor = (Doctor) userService.findById(id).orElseThrow(() -> new RuntimeException
+                (String.format("Пользователь с параметром id= %s не найден", id)));
+        patientsDto.getUsers().forEach(userDto -> {
+            if (!userDto.isAssignedToDoctor()) {
+                Patient byId = patientService.findById(userDto.getId())
+                        .orElseThrow(() -> new RuntimeException
+                                (String.format("Пользователь с параметром id= %s не найден", userDto.getId())));
+                byId.setDoctor(null);
+                patientService.save(byId);
+                doctor.getPatients().remove(byId);
+            }
+        });
+        userService.save(doctor);
+        showDoctor(model, doctor, id, userChangesDto);
+        model.addAttribute("message", "Изменения успешно сохранены!");
+        return "baseTemplate";
     }
 }

@@ -199,7 +199,9 @@ input[type="image"]{
     margin: 0;
     transition: all 0.5s ease 0s; transform: rotate(0deg);
 }
-
+i input{
+    display: none;
+}
 footer{
     height: 950px;
     background-color: #171717;

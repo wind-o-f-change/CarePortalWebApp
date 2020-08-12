@@ -19,9 +19,6 @@ public class Question {
     @Column(name = "question_text")
     private String text;
 
-    @Column
-    private String type;
-
     @ManyToMany(mappedBy= "questionList")
     private List<Anketa> anketaList = new ArrayList<>();
 

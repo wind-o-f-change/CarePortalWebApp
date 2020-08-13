@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <h2>Личный кабинет администратора<br>${admin.getFullName()}</h2>
 <c:if test="${not empty message}">
@@ -11,17 +12,38 @@
 
 <h3>Просмотр пользователей</h3>
 <div id="show-users-list">
-    <form method="post" action="/admin">
-        <h4>Выберите действие: <select name="find_action" required>
-            <option selected value="NOT_ENABLED">Не подтвержденные</option>
-            <option value="ENABLED">Подтвержденные</option>
-            <option value="PATIENT_DOCTOR">Все пользователи</option>
-            <option value="PATIENT">Пациенты</option>
-            <option value="DOCTOR">Врачи</option>
-            <option value="ADMIN">Администраторы</option>
-        </select> <input type="submit" value="Смотреть"/></h4>
+    <form method="post" action="/admin" modelAttribute="search">
+        <table>
+            <tr>
+                <td><form:label path = "search.userStatus">Статус</form:label></td>
+                <td>
+                    <form:select multiple = "true" path = "search.userStatus">
+                        <form:option value = "true" label = "Подтверждённый"/>
+                        <form:option value = "false" label = "Неподтверждённый"/>
+                    </form:select>
+                </td>
+            </tr>
 
+            <tr>
+                <td><form:label path = "search.userRole">Роль</form:label></td>
+                <td>
+                    <form:select multiple = "true" path = "search.userRole">
+                        <form:options items = "${roleList}" />
+                    </form:select>
+                </td>
+            </tr>
 
+            <tr>
+                <td><form:label path = "search.userSex">Пол</form:label></td>
+                <td>
+                    <form:select multiple = "true" path = "search.userSex">
+                        <form:options items = "${sexList}" />
+                    </form:select>
+                </td>
+            </tr>
+
+            <input type="submit" value="Смотреть"/>
+        </table>
     </form>
 </div>
 <br>

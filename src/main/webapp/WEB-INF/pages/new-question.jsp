@@ -11,18 +11,21 @@
 
 <form action="/new-question" method="post" modelAttribute="questionDto">
     <span>${message}</span><br>
-
+    <div class="reg">
     <h1>Создать новый вопрос</h1>
 
-    <label for="questionText">Текст вопроса:</label>
-    <textarea id="questionText" name="text" rows="4" cols="50">${questionDto.text}</textarea>
+    <label>Текст вопроса:
+        <textarea id="questionText" name="text" rows="4" cols="50">${questionDto.text}</textarea></label>
+
     <br><br>
 
     <c:forEach var="answerDto" items="${questionDto.answerDtoList}" varStatus="vs">
-        <label for="answerDtoList[${vs.index}]">Вариант ответа ${vs.index+1}</label>
-        <form:input id="answerDtoList[${vs.index}]" path="questionDto.answerDtoList[${vs.index}].text"/>
+        <label >Вариант ответа ${vs.index+1}
+            <form:input size="35" id="answerDtoList[${vs.index}]" path="questionDto.answerDtoList[${vs.index}].text"/>
+        </label>
+
         <br>
     </c:forEach>
-
+    </div>
     <div><input type="submit" value="Сохранить"/></div>
 </form>

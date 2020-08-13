@@ -7,4 +7,8 @@ $(function () {
             $('#error-pass').show();
         }
     });
+
+    $('input#oldpass').on('focus', function () {
+        $('.message-section').css('display', 'none');
+    })
 })

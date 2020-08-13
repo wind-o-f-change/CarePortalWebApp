@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import ru.careportal.core.db.model.Doctor;
+import ru.careportal.core.db.model.Patient;
 import ru.careportal.core.db.model.Role;
 import ru.careportal.core.db.model.User;
 

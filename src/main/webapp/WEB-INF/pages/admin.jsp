@@ -1,14 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<p><h5>Вы зашли как: ${admin_name}</h5>
-<h3>Кабинет администратора</h3></p>
+
+<h2>Личный кабинет администратора<br>${admin.getFullName()}</h2>
 <c:if test="${not empty message}">
     <div class="ms_info">
         <i class="fa fa-check-circle"></i>
             ${message}
     </div>
 </c:if>
-<div>
+
+<h3>Просмотр пользователей</h3>
+<div id="show-users-list">
     <form method="post" action="/admin">
         <h4>Выберите действие: <select name="find_action" required>
             <option selected value="NOT_ENABLED">Не подтвержденные</option>
@@ -22,11 +24,16 @@
 
     </form>
 </div>
+<br>
 <div>
     <c:set var="pageBody" value="${list_body}"/>
     <c:if test="${pageBody != null}">
         <c:import url="${list_body}"/>
     </c:if>
-
 </div>
+<br>
+<br>
+<hr>
+<a href="/anketa-constr"><button>Конструктор анкет</button></a>&nbsp;&nbsp;
+<a href="/new-question"><button>Конструктор вопросов</button></a>
 <br><br><br>

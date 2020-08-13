@@ -189,10 +189,10 @@ main{
     background-color: #dbe1ee;
     min-height: 635px;
 }
-#date, #data, #anket-list, #fill-anket-list, #p-list, #pass-section{
+#date, #data, #anket-list, #fill-anket-list, #p-list, #pass-section, .hidden-select select, #free-patients{
     display: none;
 }
-.about-me, .av-ankets, .fill-ankets, .patient-list, .pass-header{
+.about-me, .av-ankets, .fill-ankets, .patient-list, .pass-header, .new-patients{
     background-color: transparent;
     display: inline-block;
 }
@@ -200,7 +200,9 @@ input[type="image"]{
     margin: 0;
     transition: all 0.5s ease 0s; transform: rotate(0deg);
 }
-
+i input{
+    display: none;
+}
 footer{
     height: 950px;
     background-color: #171717;

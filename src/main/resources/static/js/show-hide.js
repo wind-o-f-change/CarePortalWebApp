@@ -100,6 +100,26 @@ $(function () {
         };
     });
 
+    $('.new-patients').on('click', function () {
+        if ($('#free-patients').is(':visible')) {
+            $('#free-patients').hide(400);
+        } else {
+            $('#free-patients').show(400);
+        };
+
+        if ( $('input.new-patients').css('transform') == 'matrix(1, 0, 0, 1, 0, 0)'){
+            $('input.new-patients').css({
+                transition: 'all 0.4s',
+                transform: 'rotate(90deg)'
+            });
+        } else  {
+            $('input.new-patients').css({
+                transition: 'all 0.4s',
+                transform: 'rotate(0deg)'
+            });
+        };
+    });
+
     $('#checkAll').on('click', function(){
         if ( $('#checkAll').prop('checked')) {
             $('input').prop('checked', true);

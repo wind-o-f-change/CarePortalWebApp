@@ -2,7 +2,12 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <h3>Регистрация</h3>
 <form action="/registration" method="post">
-    <span>${message}</span>
+    <c:if test="${not empty error}">
+        <div class="ms_error">
+            <i class="fa fa-times-circle"></i>
+                ${error}
+        </div>
+    </c:if>
     <div class="reg">
     <div><label> Ваш email : <input type="email" name="email" required="required"/> </label></div>
     <div><label> Пароль : <input type="password" name="password" required="required"/> </label></div>

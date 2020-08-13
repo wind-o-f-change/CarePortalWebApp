@@ -26,13 +26,14 @@
 <input type="image" class="patient-list" alt="Закрепленные пациенты"
        src="${pageContext.request.contextPath}/img/point.png"/>
 <h3 class="patient-list">Закрепленные пациенты</h3>
-<c:if test="${user.getPatients().size() < 1}">
-    <p>Закрепленных пациентов в данный момент нет</p>
-    <br>
-</c:if>
-<c:if test="${user.getPatients().size() >= 1}">
-<c:if test="${pageContext.request.isUserInRole('ROLE_DOCTOR')}">
+
 <div id="p-list">
+    <c:if test="${user.getPatients().size() < 1}">
+        <p>Закрепленных пациентов в данный момент нет</p>
+        <br>
+    </c:if>
+<c:if test="${user.getPatients().size() >= 1}">
+    <c:if test="${pageContext.request.isUserInRole('ROLE_DOCTOR')}">
     <table>
         <tr>
             <th>Id</th>
@@ -62,17 +63,16 @@
                 </c:if>
                 <td> <fmt:formatDate value="${patient.getCreated()}" pattern="yyyy-MM-dd HH:mm"/></td>
                 <td>
-                    <a href="${pageContext.request.contextPath}/doctor/showPatient/${patient.getId()}">Профиль</a>
+                    <a target="_blank" href="${pageContext.request.contextPath}/doctor/showPatient/${patient.getId()}">Профиль</a>
                 </td>
             </tr>
         </c:forEach>
     </table>
     <br>
-</div>
+
 </c:if>
-</c:if>
+
 <c:if test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
-    <div id="p-list">
         <form:form action="/admin/deleteFromDoc/${id}" method="post" modelAttribute="patientsDto">
         <table>
             <tr>
@@ -107,7 +107,7 @@
                     </c:if>
                     <td> <fmt:formatDate value="${patient.getCreated()}" pattern="yyyy-MM-dd HH:mm"/></td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/doctor/showPatient/${patient.getId()}">Профиль</a>
+                        <a target="_blank" href="${pageContext.request.contextPath}/doctor/showPatient/${patient.getId()}">Профиль</a>
                     </td>
                     <td class="hidden-checkbox">
                         <i class="fa fa-times-circle">
@@ -122,16 +122,21 @@
             <input type="submit" value="Сохранить изменения"> <input type="reset" id="pat-reset" value="Сбросить">
         </form:form>
         <br>
-    </div>
-    <br>
-    <input type="image" class="new-patients" alt="Новые пациенты"
-           src="${pageContext.request.contextPath}/img/point.png"/>
-    <h3 class="new-patients">Назначение новых пациентов</h3>
-    <div id="free-patients">
-        <c:set var="pageBody" value="${list_body}"/>
-        <c:if test="${pageBody != null}">
-            <c:import url="${list_body}"/>
-        </c:if>
-    </div>
+
+
+</c:if>
+</c:if>
+</div>
+<c:if test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+<br>
+<input type="image" class="new-patients" alt="Новые пациенты"
+       src="${pageContext.request.contextPath}/img/point.png"/>
+<h3 class="new-patients">Назначение новых пациентов</h3>
+<div id="free-patients">
+    <c:set var="pageBody" value="${list_body}"/>
+    <c:if test="${pageBody != null}">
+        <c:import url="${list_body}"/>
+    </c:if>
+</div>
 </c:if>
 <br><br><br>

@@ -50,7 +50,7 @@
                 <fmt:formatDate value="${user.getCreated()}" pattern="yyyy-MM-dd HH:mm"/></td>
             <td>
                 <c:if test="${user.getRole() != ADMIN}">
-                <a href="${pageContext.request.contextPath}/admin/showUser/${user.getId()}">Профиль</a>
+                <a target="_blank" href="${pageContext.request.contextPath}/admin/showUser/${user.getId()}">Профиль</a>
                 </c:if>
                 <c:if test="${user.getRole() == ADMIN}">
                     N/A

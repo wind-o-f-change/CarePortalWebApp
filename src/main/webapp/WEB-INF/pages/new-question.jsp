@@ -8,9 +8,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<br>
+<c:if test="${not empty message}">
+    <div class="ms_info">
+        <i class="fa fa-check-circle"></i>
+            ${message}
+    </div>
+</c:if>
+<br>
 <form action="/new-question" method="post" modelAttribute="questionDto">
-    <span>${message}</span><br>
     <div class="reg">
     <h1>Создать новый вопрос</h1>
 

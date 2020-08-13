@@ -36,7 +36,7 @@ public class SecurityController {
         User user = form.toUser(passwordEncoder);
         Optional<User> userFromDB = userService.findByEmail(user.getEmail());
         if (userFromDB.isPresent()) {
-            model.addAttribute("message", "Пользователь с таким именем уже зарегистрирован");
+            model.addAttribute("error", "Пользователь с таким именем уже зарегистрирован");
             model.addAttribute("PageTitle", "Страница регистрации");
             model.addAttribute("PageBody", "reg.jsp");
             log.debug(String.format("Пользователь с email '%s' уже зарегестрирован", userFromDB.get().getEmail()));
@@ -44,8 +44,9 @@ public class SecurityController {
         }
 
         userService.save(user);
+        model.addAttribute("message", "Вы успешно зарегистрированы!");
         log.info(String.format("Сохранен пользователь: %s", user));
-        return "redirect:/login";
+        return "login";
     }
 
 

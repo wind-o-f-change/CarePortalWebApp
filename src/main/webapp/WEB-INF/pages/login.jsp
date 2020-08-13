@@ -30,7 +30,23 @@
 </header>
 <main>
     <div class="fixed-container">
+
 <h3>Введите данные учетной записи</h3>
+        <br>
+        <section class="message-section">
+            <c:if test="${not empty error}">
+                <div class="ms_error">
+                    <i class="fa fa-times-circle"></i>
+                        ${error}
+                </div>
+            </c:if>
+            <c:if test="${not empty message}">
+                <div class="ms_info">
+                    <i class="fa fa-check-circle"></i>
+                        ${message}
+                </div>
+            </c:if>
+        </section>
 <div>
     <form action="/login" method="post">
         <div class="reg">
@@ -38,12 +54,6 @@
         <div><label> Пароль : <input type="password" name="password"/> </label></div>
         </div>
         <div><input type="submit" value="Войти"/></div>
-        <c:if test="${not empty error}">
-            <div class="ms_error">
-                <i class="fa fa-times-circle"></i>
-                ${error}
-            </div>
-        </c:if>
     </form>
 </div>
 

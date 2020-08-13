@@ -52,7 +52,6 @@ public class PatientController {
         model.addAttribute("PageTitle", "Страница пациента");
         model.addAttribute("PageBody", "patient.jsp");
         model.addAttribute("ankets", anketaService.getAllAnkets());
-//        model.addAttribute("passedAnkets", passedAnketaService.getPassedAnketaDtoListByEmail(email));
         List<PassedAnketaDto> passedAnketaDtoList = passedAnketaService.getPassedAnketaDtoListByEmail(email);
         model.addAttribute("passedAnketaDtoList", passedAnketaDtoList);
         model.addAttribute("passedAnketaTable", "passed-anketa-list.jsp");

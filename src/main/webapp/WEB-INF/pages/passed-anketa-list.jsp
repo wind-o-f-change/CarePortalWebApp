@@ -10,6 +10,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <table>
+    <th>№</th>
+    <th>Наименование анкеты</th>
+    <th>Дата заполнения</th>
+    <th>Ссылка</th>
 <c:forEach var="passedAnketaDto" items="${passedAnketaDtoList}" varStatus="vs">
     <tr>
         <td>${vs.index+1}</td>

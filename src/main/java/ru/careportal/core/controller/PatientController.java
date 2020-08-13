@@ -69,10 +69,15 @@ public class PatientController {
         if (!userFromDb.getEmail().equals(user.getEmail())) {
             Optional<User> byEmail = userService.findByEmail(user.getEmail());
             if (byEmail.isPresent()) {
-                model.addAttribute("message", "Пользователь с таким email уже зарегистрирован");
+                model.addAttribute("error", "Пользователь с таким email уже зарегистрирован");
                 model.addAttribute("PageTitle", "Страница пациента");
                 model.addAttribute("PageBody", "patient.jsp");
                 model.addAttribute("user", userFromDb);
+
+                model.addAttribute("ankets", anketaService.getAllAnkets());
+                List<PassedAnketaDto> passedAnketaDtoList = passedAnketaService.getPassedAnketaDtoListByEmail(userFromDb.getEmail());
+                model.addAttribute("passedAnketaDtoList", passedAnketaDtoList);
+                model.addAttribute("passedAnketaTable", "passed-anketa-list.jsp");
                 return "baseTemplate";
             }
 
@@ -95,6 +100,7 @@ public class PatientController {
         model.addAttribute("passedAnketaDtoList", passedAnketaDtoList);
         model.addAttribute("passedAnketaTable", "passed-anketa-list.jsp");
         model.addAttribute("user", userFromDb);
+        model.addAttribute("message", "Изменения успешно сохранены!");
 
         return "baseTemplate";
     }
@@ -119,9 +125,10 @@ public class PatientController {
                 (String.format("Пациент с параметром email='%s' не найден", email)));
 
         if (!userService.validateOldPassword(user, oldPassword)) {
-            model.addAttribute("message", "Введен недействительный пароль!");
+            model.addAttribute("error", "Введен недействительный пароль!");
         } else {
             userService.saveWithNewPassword(user, password);
+            model.addAttribute("message", "Изменения успешно сохранены!");
         }
         model.addAttribute("PageTitle", "Страница пациента");
         model.addAttribute("PageBody", "patient.jsp");

@@ -5,15 +5,23 @@
 <c:if test="${pageContext.request.isUserInRole('ROLE_PATIENT')}">
     <h2>Личный кабинет пациента<br>${user.fullName}</h2>
 </c:if>
+<br>
+<section class="message-section">
+    <c:if test="${not empty error}">
+        <div class="ms_error">
+            <i class="fa fa-times-circle"></i>
+                ${error}
+        </div>
+    </c:if>
+    <c:if test="${not empty message}">
+        <div class="ms_info">
+            <i class="fa fa-check-circle"></i>
+                ${message}
+        </div>
+    </c:if>
+</section>
 <c:if test="${pageContext.request.isUserInRole('ROLE_DOCTOR')}">
     <h2>Сведения о пациенте<br>${user.fullName}</h2>
-</c:if>
-<br>
-<c:if test="${not empty message}">
-    <div class="ms_error">
-        <i class="fa fa-times-circle"></i>
-            ${message}
-    </div>
 </c:if>
 
 <c:import url="personalData.jsp"/>

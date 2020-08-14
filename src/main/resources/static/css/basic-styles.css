@@ -107,6 +107,13 @@ textarea{
     padding: 5px;
     margin: 20px;
 }
+.selection option{
+    width: 200px;
+}
+
+.selection select{
+    margin-right: 20px;
+}
 .error{
     border: 1px solid ;
 }
@@ -115,5 +122,17 @@ textarea{
 }
 .center-td{
     text-align: center;
+}
+#first-filter{
+    float: left;
+}
+#sec-filter{
+    float: left;
+}
+#third-filter{
+    float: left;
+}
+#select-input{
+    clear: both;
 }
 

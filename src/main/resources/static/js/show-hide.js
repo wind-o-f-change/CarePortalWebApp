@@ -129,6 +129,10 @@ $(function () {
         console.log('click');
     });
 
+    $('#selection-reset').on('click', function(){
+        $("option:selected").prop("selected", false)
+    });
+
     $( "input[type=checkbox]" )
         .parents('td')
         .addClass( "center-td" );

@@ -12,40 +12,35 @@
 
 <h3>Просмотр пользователей</h3>
 <div id="show-users-list">
-    <form method="post" action="/admin" modelAttribute="search">
-        <table>
-            <tr>
-                <td><form:label path = "search.userStatus">Статус</form:label></td>
-                <td>
-                    <form:select multiple = "true" path = "search.userStatus">
-                        <form:option value = "true" label = "Подтверждённый"/>
-                        <form:option value = "false" label = "Неподтверждённый"/>
-                    </form:select>
-                </td>
-            </tr>
 
-            <tr>
-                <td><form:label path = "search.userRole">Роль</form:label></td>
-                <td>
-                    <form:select multiple = "true" path = "search.userRole">
-                        <form:options items = "${roleList}" />
-                    </form:select>
-                </td>
-            </tr>
+    <form class="selection" method="post" action="/admin" modelAttribute="search">
+        <div id="first-filter">
+        <form:label path = "search.userStatus">Статус</form:label> <br>
+            <form:select  multiple = "true" path = "search.userStatus" >
+            <form:option value = "true" label = "Подтверждённый"/>
+            <form:option value = "false" label = "Неподтверждённый"/>
+        </form:select>
+        </div>
+        <div id="sec-filter">
+        <form:label path = "search.userRole">Роль</form:label><br>
 
-            <tr>
-                <td><form:label path = "search.userSex">Пол</form:label></td>
-                <td>
-                    <form:select multiple = "true" path = "search.userSex">
-                        <form:options items = "${sexList}" />
-                    </form:select>
-                </td>
-            </tr>
+        <form:select  multiple = "true" path = "search.userRole">
+            <form:options items = "${roleList}" />
+        </form:select>
+        </div>
+        <div id="third-filter">
+        <form:label path = "search.userSex">Пол</form:label><br>
 
-            <input type="submit" value="Смотреть"/>
-        </table>
+        <form:select multiple = "true" path = "search.userSex">
+            <form:options items = "${sexList}" />
+        </form:select>
+            </div>
+        <br><br>
+        <div id="select-input">
+        <input  type="submit" value="Выбрать"/><input type="reset" id="selection-reset" value="Сброс"></div>
     </form>
 </div>
+
 <br>
 <div>
     <c:set var="pageBody" value="${list_body}"/>

@@ -83,6 +83,8 @@ public class AdminController {
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin.jsp");
         model.addAttribute("message", "Изменения успешно сохранены!");
+        model.addAttribute("roleList", Role.getRoleList());
+        model.addAttribute("sexList", Sex.getSexList());
         return "baseTemplate";
     }
 

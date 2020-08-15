@@ -56,7 +56,7 @@ public class AdminController {
     }
 
     @PostMapping(value = "/admin")
-    public String showUsers(Model model, String find_action, @AuthenticationPrincipal User admin,
+    public String showUsers(Model model, @AuthenticationPrincipal User admin,
                             @ModelAttribute("userChangesDto") UserChangesDto userChangesDto,
                             @ModelAttribute("search") Search search) {
         model.addAttribute("PageTitle", "Администратор");
@@ -67,9 +67,7 @@ public class AdminController {
         model.addAttribute("roleList", Role.getRoleList());
         model.addAttribute("sexList", Sex.getSexList());
 
-        List<User> usersFromDb = new ArrayList<>();
-
-        usersFromDb = userService.findByFilter(search);
+        List<User> usersFromDb = userService.findByFilter(search);
 
         List<UserDto> usersDto = usersFromDb.stream().map(user -> new UserDto(user)).collect(Collectors.toList());
         userChangesDto.setUsers(usersDto);

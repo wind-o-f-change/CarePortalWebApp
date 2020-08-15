@@ -32,7 +32,7 @@ public abstract class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
     private Date created;
-    private boolean enabled = true; // вместо approved (isEnabled метод интерфейса UserDetails)
+    private boolean enabled;
 
     @PrePersist
     private void setCreated() {

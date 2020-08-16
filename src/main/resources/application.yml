@@ -8,7 +8,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/command_app
     username: postgres
-    password: 4444
+    password: qwerty
   jpa:
     generate-ddl: true
     show-sql: true

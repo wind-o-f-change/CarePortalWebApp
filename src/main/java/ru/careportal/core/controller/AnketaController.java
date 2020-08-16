@@ -89,7 +89,13 @@ public class AnketaController {
             model.addAttribute("questionDtoList", questionService.getAllQuestionsDto());
             model.addAttribute("anketaDto", anketaDto);
             model.addAttribute("PageBody", "anketa-constr.jsp");
-        } else {
+        } else if (anketaDto.getName().equals("")) {
+            model.addAttribute("message", "Не указано название анкеты");
+            model.addAttribute("questionDtoList", questionService.getAllQuestionsDto());
+            model.addAttribute("anketaDto", anketaDto);
+            model.addAttribute("PageBody", "anketa-constr.jsp");
+        }
+        else {
             anketaService.saveAnketaByDto(anketaDto);
             model.addAttribute("PageBody", "anketa-constr-success.jsp");
         }

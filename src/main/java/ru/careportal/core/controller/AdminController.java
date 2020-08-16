@@ -13,9 +13,9 @@ import ru.careportal.core.dto.UserChangesDto;
 import ru.careportal.core.dto.UserDto;
 import ru.careportal.core.service.PassedAnketaService;
 import ru.careportal.core.service.PatientService;
+import ru.careportal.core.service.SearchFilter;
 import ru.careportal.core.service.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,8 +37,16 @@ public class AdminController {
         this.patientService = patientService;
     }
 
+    @ModelAttribute("searchFilter")
+    public SearchFilter getSearch(){
+        return new SearchFilter();
+    }
+
     @GetMapping(value = "/admin")
     public String adminPage(Model model, @AuthenticationPrincipal User admin) {
+        model.addAttribute("roleList", Role.getRoleList());
+        model.addAttribute("sexList", Sex.getSexList());
+
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin.jsp");
         model.addAttribute("admin", admin);
@@ -47,34 +55,19 @@ public class AdminController {
     }
 
     @PostMapping(value = "/admin")
-    public String showUsers(Model model, String find_action, @AuthenticationPrincipal User admin,
-                            @ModelAttribute("userChangesDto") UserChangesDto userChangesDto) {
+    public String showUsers(Model model, @AuthenticationPrincipal User admin,
+                            @ModelAttribute("userChangesDto") UserChangesDto userChangesDto,
+                            @ModelAttribute("searchFilter") SearchFilter searchFilter) {
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin.jsp");
         model.addAttribute("list_body", "usersTable.jsp");
         model.addAttribute("admin_name", admin.getFullName());
 
-        List<User> usersFromDb = new ArrayList<>();
-        switch (find_action) {
-            case FindAction.PATIENT_DOCTOR:
-                usersFromDb = userService.findByRoleNot(Role.ROLE_ADMIN);
-                break;
-            case FindAction.PATIENT:
-                usersFromDb = userService.findByRole(Role.ROLE_PATIENT);
-                break;
-            case FindAction.DOCTOR:
-                usersFromDb = userService.findByRole(Role.ROLE_DOCTOR);
-                break;
-            case FindAction.ADMIN:
-                usersFromDb = userService.findByRole(Role.ROLE_ADMIN);
-                break;
-            case FindAction.ENABLED:
-                usersFromDb = userService.findByEnabled(true);
-                break;
-            case FindAction.NOT_ENABLED:
-                usersFromDb = userService.findByEnabled(false);
-                break;
-        }
+        model.addAttribute("roleList", Role.getRoleList());
+        model.addAttribute("sexList", Sex.getSexList());
+
+        List<User> usersFromDb = userService.findByFilter(searchFilter);
+
         List<UserDto> usersDto = usersFromDb.stream().map(user -> new UserDto(user)).collect(Collectors.toList());
         userChangesDto.setUsers(usersDto);
         model.addAttribute("userChangesDto", userChangesDto);
@@ -87,6 +80,8 @@ public class AdminController {
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin.jsp");
         model.addAttribute("message", "Изменения успешно сохранены!");
+        model.addAttribute("roleList", Role.getRoleList());
+        model.addAttribute("sexList", Sex.getSexList());
         return "baseTemplate";
     }
 

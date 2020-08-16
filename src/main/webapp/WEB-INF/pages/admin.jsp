@@ -13,25 +13,25 @@
 <h3>Просмотр пользователей</h3>
 <div id="show-users-list">
 
-    <form class="selection" method="post" action="/admin" modelAttribute="search">
+    <form class="selection" method="post" action="/admin" modelAttribute="searchFilter">
         <div id="first-filter">
-        <form:label path = "search.userStatus">Статус</form:label> <br>
-            <form:select  multiple = "true" path = "search.userStatus" >
+        <form:label path = "searchFilter.userStatus">Статус</form:label> <br>
+            <form:select  multiple = "true" path = "searchFilter.userStatus" >
             <form:option value = "true" label = "Подтверждённый"/>
             <form:option value = "false" label = "Неподтверждённый"/>
         </form:select>
         </div>
         <div id="sec-filter">
-        <form:label path = "search.userRole">Роль</form:label><br>
+        <form:label path = "searchFilter.userRole">Роль</form:label><br>
 
-        <form:select  multiple = "true" path = "search.userRole">
+        <form:select  multiple = "true" path = "searchFilter.userRole">
             <form:options items = "${roleList}" />
         </form:select>
         </div>
         <div id="third-filter">
-        <form:label path = "search.userSex">Пол</form:label><br>
+        <form:label path = "searchFilter.userSex">Пол</form:label><br>
 
-        <form:select multiple = "true" path = "search.userSex">
+        <form:select multiple = "true" path = "searchFilter.userSex">
             <form:options items = "${sexList}" />
         </form:select>
             </div>

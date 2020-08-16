@@ -1,23 +1,16 @@
 package ru.careportal.core.service;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.careportal.core.data.UserRepo;
-import ru.careportal.core.db.model.Doctor;
 import ru.careportal.core.db.model.Role;
 import ru.careportal.core.db.model.Sex;
 import ru.careportal.core.db.model.User;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class UserService {
@@ -56,10 +49,10 @@ public class UserService {
         return passwordEncoder.matches(oldPassword, user.getPassword());
     }
 
-    public List<User> findByFilter(Search search) {
-        List<Boolean> statusList = search.getUserStatus();
-        List<String> roleList = search.getUserRole();
-        List<String> sexList = search.getUserSex();
+    public List<User> findByFilter(SearchFilter searchFilter) {
+        List<Boolean> statusList = searchFilter.getUserStatus();
+        List<String> roleList = searchFilter.getUserRole();
+        List<String> sexList = searchFilter.getUserSex();
 
         UserSpecifications specStatus = new UserSpecifications();
         if (statusList.size() > 0) {

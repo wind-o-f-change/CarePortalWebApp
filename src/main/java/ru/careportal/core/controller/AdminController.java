@@ -13,10 +13,9 @@ import ru.careportal.core.dto.UserChangesDto;
 import ru.careportal.core.dto.UserDto;
 import ru.careportal.core.service.PassedAnketaService;
 import ru.careportal.core.service.PatientService;
-import ru.careportal.core.service.Search;
+import ru.careportal.core.service.SearchFilter;
 import ru.careportal.core.service.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,9 +37,9 @@ public class AdminController {
         this.patientService = patientService;
     }
 
-    @ModelAttribute("search")
-    public Search getSearch(){
-        return new Search();
+    @ModelAttribute("searchFilter")
+    public SearchFilter getSearch(){
+        return new SearchFilter();
     }
 
     @GetMapping(value = "/admin")
@@ -58,7 +57,7 @@ public class AdminController {
     @PostMapping(value = "/admin")
     public String showUsers(Model model, @AuthenticationPrincipal User admin,
                             @ModelAttribute("userChangesDto") UserChangesDto userChangesDto,
-                            @ModelAttribute("search") Search search) {
+                            @ModelAttribute("searchFilter") SearchFilter searchFilter) {
         model.addAttribute("PageTitle", "Администратор");
         model.addAttribute("PageBody", "admin.jsp");
         model.addAttribute("list_body", "usersTable.jsp");
@@ -67,7 +66,7 @@ public class AdminController {
         model.addAttribute("roleList", Role.getRoleList());
         model.addAttribute("sexList", Sex.getSexList());
 
-        List<User> usersFromDb = userService.findByFilter(search);
+        List<User> usersFromDb = userService.findByFilter(searchFilter);
 
         List<UserDto> usersDto = usersFromDb.stream().map(user -> new UserDto(user)).collect(Collectors.toList());
         userChangesDto.setUsers(usersDto);

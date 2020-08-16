@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 @RequiredArgsConstructor
-public class Search {
+public class SearchFilter {
     public List<Boolean> userStatus;
     public List<String> userRole;
     public List<String> userSex;

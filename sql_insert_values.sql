@@ -14,10 +14,10 @@ VALUES
  '$2a$10$16WeJxKLX8rtJ3HJibZ2huEQYrwe5VfjciPXNvyxJcRCshl8qSDue', 'ROLE_PATIENT', 'WOMAN', '1991-01-01', null),
 
 ('Doctor', 104, '2020-08-14 02:14:00.001000', 'gripp@doctor.com', false, 'Грипп Виктор Викторович',
- '$2a$10$16WeJxKLX8rtJ3HJibZ2huEQYrwe5VfjciPXNvyxJcRCshl8qSDue', 'ROLE_PATIENT', 'MAN', '1991-01-01', null),
+ '$2a$10$16WeJxKLX8rtJ3HJibZ2huEQYrwe5VfjciPXNvyxJcRCshl8qSDue', 'ROLE_DOCTOR', 'MAN', '1991-01-01', null),
 
 ('Doctor', 105, '2020-08-14 02:14:00.001000', 'flu@doctor.com', false, 'Простудова Анна Игоревна',
- '$2a$10$16WeJxKLX8rtJ3HJibZ2huEQYrwe5VfjciPXNvyxJcRCshl8qSDue', 'ROLE_PATIENT', 'WOMAN', '1991-01-01', null)
+ '$2a$10$16WeJxKLX8rtJ3HJibZ2huEQYrwe5VfjciPXNvyxJcRCshl8qSDue', 'ROLE_DOCTOR', 'WOMAN', '1991-01-01', null)
 ;
 
 INSERT INTO public.ankets (anketa_id, name, create_dtm)

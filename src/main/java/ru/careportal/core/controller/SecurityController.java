@@ -53,7 +53,7 @@ public class SecurityController {
     @GetMapping({ "/", "/login" })
     public String loginFailure(@RequestParam(value = "error", required = false) String error, Model model) {
         if (error != null && error.isEmpty()) {
-            model.addAttribute("error", "Аккаунт не подтвержден администратором или использован неверный e-mail или пароль");
+            model.addAttribute("error", "Аккаунт не подтвержден администратором или использован неверный e-mail/пароль");
         }
         return "login";
     }

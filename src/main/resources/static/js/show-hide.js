@@ -130,7 +130,7 @@ $(function () {
     });
 
     $('#selection-reset').on('click', function(){
-        $("option:selected").prop("selected", false)
+        $("option:selected").removeAttr("selected");
     });
 
     $( "input[type=checkbox]" )

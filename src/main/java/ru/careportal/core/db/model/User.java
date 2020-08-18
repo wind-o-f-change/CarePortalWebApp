@@ -17,7 +17,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public abstract class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
     @Column(unique = true)

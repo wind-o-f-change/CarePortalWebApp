@@ -6,12 +6,12 @@ import ru.careportal.core.db.model.Role;
  * Defines pages depends on users or their roles.
  * Класс опредляет стартовую/первую страницу в зависимости от пользователя или роли пользовтеля
  */
-class UserStartPageDeterminant {
+public class UserStartPageDeterminant {
 	/**
 	 * @param role user role
 	 * @return user start page
 	 */
-	String definePageByRole(Role role) {
+	public String definePageByRole(Role role) {
 		switch (role) {
 			case ROLE_ADMIN:
 				return "/admin";

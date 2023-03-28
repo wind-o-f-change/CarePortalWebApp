@@ -2,6 +2,7 @@ package ru.careportal.core.data;
 
 import org.springframework.data.repository.CrudRepository;
 import ru.careportal.core.db.model.Patient;
+import ru.careportal.core.db.model.PatientNNN;
 import ru.careportal.core.db.model.Role;
 
 import java.util.List;

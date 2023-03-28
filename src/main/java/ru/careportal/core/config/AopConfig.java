@@ -38,4 +38,8 @@ public class AopConfig {
     public void logErrServices(JoinPoint point, Throwable e){
         log.warn(String.format("%s method throw exception: %s", point.toShortString(), e));
     }
+
+    public void asd() {
+//        Очень полезная функция
+    }
 }

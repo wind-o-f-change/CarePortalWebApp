@@ -51,6 +51,15 @@ public class AnketaController {
         return "baseTemplate";
     }
 
+    @PostMapping("/no_activ-anketa")
+    public String noActiveAnketa(Model model, Principal principal, @ModelAttribute("passedAnketaDto") PassedAnketaDto passedAnketaDto) {
+        passedAnketaService.savePassedAnketa(passedAnketaDto, principal.getName());
+//mmdf gsegwegf
+        model.addAttribute("PageTitle", passedAnketaDto.getAnketaName());
+        model.addAttribute("PageBody", "anketa-saved.jsp");
+        return "baseTemplate";
+    }
+
     @GetMapping("/passed-anketa-list")
     public String showPassedAnketa(Model model, Principal principal) {
         List<PassedAnketaDto> passedAnketaDtoList = passedAnketaService.getPassedAnketaDtoListByEmail(principal.getName());
